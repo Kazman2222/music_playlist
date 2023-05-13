@@ -1,5 +1,6 @@
 import 'package:audio_playlist/audiio_player.dart';
 import 'package:audio_playlist/home/homepage.dart';
+import 'package:audio_playlist/home/radio.dart';
 import 'package:audio_playlist/landingPage/landingpage.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: landingPage(),
+      home: homePage(),
     );
   }
 }
