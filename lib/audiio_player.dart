@@ -18,16 +18,17 @@ class _audio_playerState extends State<audio_player> {
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
+  List music = ['olamide.mp3', 'qdot.mp3', 'rock.mp3', 'sample.mp3'];
 
   @override
   void initState() {
     super.initState();
     setAudio();
-    audioPlayer.onPlayerStateChanged.listen((event) {
-      setState(() {
-        isPlaying = event == PlayerState.playing;
-      });
-    });
+    // audioPlayer.onPlayerStateChanged.listen((event) {
+    //   setState(() {
+    //   isPlaying = event == PlayerState.playing;
+    // });
+    //  });
 
     audioPlayer.onDurationChanged.listen((newDuration) {
       setState(() {
@@ -42,10 +43,17 @@ class _audio_playerState extends State<audio_player> {
     });
   }
 
+  void newDuration(int second) {
+    Duration newDurations = Duration(seconds: second);
+    audioPlayer.seek(newDurations);
+  }
+
+  int count = 3;
+
   Future setAudio() async {
     audioPlayer.setReleaseMode(ReleaseMode.loop);
     final player = AudioCache(prefix: 'lib/audio/');
-    final url = await player.load('sample.mp3');
+    final url = await player.load(music[count]);
     audioPlayer.setSourceUrl(url.path);
   }
 
@@ -61,31 +69,72 @@ class _audio_playerState extends State<audio_player> {
     return Scaffold(
       body: Column(
         children: [
-
           Slider(
-            min: 0,
-            max: duration.inSeconds.toDouble(),
-            value: position.inSeconds.toDouble(), 
-            onChanged: ((value) {
-            
-          })),
-          ElevatedButton(
-              onPressed: (() async {
-                if (isPlaying) {
-                  await audioPlayer.pause();
-                } else {
-                  await audioPlayer.resume();
-                }
-              }),
-              child: Text('play')),
-
-              Row(
-                children: [
-                  
-                ],
-              )
-
-
+              min: 0,
+              max: duration.inSeconds.toDouble(),
+              value: position.inSeconds.toDouble(),
+              onChanged: ((value) {
+                setState(() {
+                  newDuration(value.toInt());
+                });
+              })),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(position.toString().split('.')[0]),
+              Text(duration.toString().split('.')[0])
+            ],
+          ),
+          Container(
+            height: 200,
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: music.length,
+                itemBuilder: ((context, index) {
+                  return ElevatedButton.icon(
+                    label: Text('play'),
+                    onPressed: (() async {
+                      if (isPlaying == false) {
+                        await audioPlayer.resume();
+                          setState(() {
+                          isPlaying = true;
+                        });
+                      } else {
+                        await audioPlayer.pause();
+                        setState(() {
+                          isPlaying = false;
+                        });
+                      }
+                    }),
+                    icon: isPlaying == false
+                        ? Icon(Icons.play_arrow)
+                        : Icon(Icons.pause),
+                  );
+                })),
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                  onPressed: (() async {
+                    setState(() {
+                      count = 1;
+                      setAudio();
+                      isPlaying = false;
+                    });
+                  }),
+                  child: Text('prev')),
+              ElevatedButton(
+                  onPressed: (() async {
+                    setState(() {
+                      count = 2;
+                      setAudio();
+                      isPlaying = false;
+                      print(count);
+                    });
+                  }),
+                  child: Text('next'))
+            ],
+          )
         ],
       ),
     );
