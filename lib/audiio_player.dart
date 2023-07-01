@@ -1,4 +1,4 @@
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
@@ -96,7 +96,7 @@ class _audio_playerState extends State<audio_player> {
                     onPressed: (() async {
                       if (isPlaying == false) {
                         await audioPlayer.resume();
-                          setState(() {
+                        setState(() {
                           isPlaying = true;
                         });
                       } else {

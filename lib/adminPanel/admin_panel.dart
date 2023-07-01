@@ -1,6 +1,11 @@
+import 'package:audio_playlist/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../components/buttons.dart';
+import '../login/logout.dart';
 
 class adminPanel extends StatefulWidget {
   const adminPanel({super.key});
@@ -13,101 +18,67 @@ class _MyWidgetState extends State<adminPanel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor: Color.fromARGB(255, 32, 32, 32),
-      appBar: AppBar(
-         backgroundColor: Color.fromARGB(255, 32, 32, 32),
-        centerTitle: true,
-        leading: Icon(Icons.arrow_back_ios,color: Colors.white,),
-        title: Text('Admin Panel',style: TextStyle(fontWeight: FontWeight.bold),),
-      ),
+      backgroundColor: kBackGroundColour,
+      appBar: buildAppBars(
+          text: 'Admin Panel', onTap: () => Navigator.pop(context)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 10,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: const [
-                Icon(Icons.app_registration,color: Colors.green,size: 30,),
-                const SizedBox(width: 10,),
-                Text('Dashboard',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 20),)
-              ],
-            ),
+          SizedBox(
+            height: 20.h,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-            child: Divider(color: Colors.white,height: 2,thickness: 1,),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: const [
-                Icon(Icons.account_box,color: Colors.green,size: 30,),
-                const SizedBox(width: 10,),
-                Text('Manage Podcast',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 20),)
+            padding: EdgeInsets.symmetric(horizontal: 5.h),
+            child: Column(
+              children: [
+                InkButton(
+                    icon1: Icons.app_registration,
+                    text1: 'Dashboard',
+                    onTap: () {
+                      null;
+                    }),
+                buildPadding(),
+                InkButton(
+                    icon1: Icons.account_box,
+                    text1: 'Manage Podcast',
+                    onTap: () {
+                      null;
+                    }),
+                buildPadding(),
+                InkButton(
+                    icon1: Icons.add,
+                    text1: 'Add New Podcast',
+                    onTap: () {
+                      null;
+                    }),
+                buildPadding(),
+                InkButton(
+                    icon1: Icons.graphic_eq,
+                    text1: 'Analytics',
+                    onTap: () {
+                      null;
+                    }),
+                buildPadding(),
+                InkButton(
+                    icon1: Icons.settings,
+                    text1: 'Settings',
+                    onTap: () {
+                      null;
+                    }),
+                buildPadding(),
+                InkButton(
+                    icon1: Icons.logout,
+                    text1: 'Log-Out',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const logout()),
+                      );
+                    }),
+                buildPadding(),
               ],
             ),
           ),
-        const  Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-            child: Divider(color: Colors.white,height: 2,thickness: 1,),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: const [
-                Icon(Icons.add,color: Colors.green,size: 30,),
-                const SizedBox(width: 10,),
-                Text('Add New Podcast',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 20),)
-              ],
-            ),
-          ),
-       const   Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-            child: Divider(color: Colors.white,height: 2,thickness: 1,),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: const [
-                Icon(Icons.graphic_eq,color: Colors.green,size: 30,),
-                const SizedBox(width: 10,),
-                Text('Analytics',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 22),)
-              ],
-            ),
-          ),
-        const  Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-            child: Divider(color: Colors.white,height: 2,thickness: 1,),
-          ),
-            Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: const [
-                Icon(Icons.settings,color: Colors.green,size: 30,),
-                 SizedBox(width: 10,),
-                Text('Settings',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 22),)
-              ],
-            ),
-          ),
-        const  Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-            child: Divider(color: Colors.white,height: 2,thickness: 1,),
-          ),
-           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: const [
-                Icon(Icons.logout,color: Colors.green,size: 30,),
-                 SizedBox(width: 10,),
-                Text('Log-Out',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 22),)
-              ],
-            ),
-          ),
-        const  Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-            child: Divider(color: Colors.white,height: 2,thickness: 1,),
-          )
         ],
       ),
     );

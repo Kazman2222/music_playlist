@@ -1,10 +1,16 @@
+import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
+import 'package:audio_playlist/constants.dart';
 import 'package:audio_playlist/state_management/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
+
+import '../adminPanel/admin_panel.dart';
+import '../artistesdetails/podcast_details.dart';
+import '../artistesdetails/profile.dart';
 
 class final_home extends StatefulWidget {
   const final_home({super.key});
@@ -57,99 +63,121 @@ class _final_homeState extends State<final_home> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 32, 32, 32),
-        body: Consumer<AudioManagement>(builder: ((context, value, child) {
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xff212121),
+              kBackGroundColour,
+            ],
+          ),
+        ),
+        child: Consumer<AudioManagement>(builder: ((context, value, child) {
           return SafeArea(
               top: true,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 20, right: 10, bottom: 10, top: 10),
-                      child:  Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:  [
-                          CircleAvatar(
-                            backgroundColor: Color.fromARGB(255, 71, 224, 76),
-                            child:  Text('J',
-                                style:  TextStyle(fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Colors.black)
-                                    ),
-                            radius: 20,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const profilePage()),
+                              );
+                            },
+                            child: const CircleAvatar(
+                              backgroundColor: Color.fromARGB(255, 71, 224, 76),
+                              radius: 20,
+                              child: Text('J',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.black)),
+                            ),
                           ),
                           Row(
-                            children: const [
-                              Icon(
-                                Icons.notifications_active,
-                                color: Colors.white,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.notifications_active,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {},
                               ),
                               SizedBox(
-                                width: 10,
+                                width: 5.w,
                               ),
-                              Icon(
-                                Icons.menu,
-                                color: Colors.white,
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.menu,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const adminPanel()),
+                                  );
+                                },
                               )
                             ],
                           )
                         ],
                       ),
                     ),
-                 const   Padding(
-                      padding:  EdgeInsets.only(left: 20, top: 10),
-                      child: Text(
-                        'Listen To Your  ',
-                        style: TextStyle(color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22)
-                      ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, top: 10),
+                      child: Text('Listen To Your  ',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 28)),
                     ),
-                  const  Padding(
-                      padding:  EdgeInsets.only(left: 20),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20),
                       child: Text(
                         'Favorite Podcast',
-                        style: TextStyle( color: Colors.white,
+                        style: TextStyle(
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 22),
+                            fontSize: 28),
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: 15.h,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: SizedBox(
-                        height: 45,
+                        // height: 45,
                         child: TextField(
                           onSubmitted: (value) {},
+                          textAlign: TextAlign.start,
                           controller: searchController,
-                          decoration: InputDecoration(
-                              prefixIcon: const Icon(
-                                Icons.search,
-                                color: Colors.white,
-                              ),
-                              filled: true,
-                              fillColor: Colors.grey,
-                              hintText: 'What do you want to listen to...',
-                              hintStyle: const TextStyle(
-                                color: Colors.white,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(15)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide:const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(15)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(15))),
+                          decoration: kTextFieldDecoration.copyWith(
+                            prefixIcon: const Icon(
+                              Icons.search,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                            filled: true,
+                            fillColor: const Color(0xff535353),
+                            hintText: 'What do you want to listen to...',
+                          ),
                         ),
                       ),
                     ),
@@ -159,12 +187,11 @@ class _final_homeState extends State<final_home> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                        const  Text(
-                            'Recent search',
-                            style:TextStyle(color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15)
-                          ),
+                          const Text('Recent search',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15)),
                           IconButton(
                               onPressed: (() {
                                 setState(() {
@@ -182,14 +209,14 @@ class _final_homeState extends State<final_home> {
                       visible: myList.isEmpty ? false : true,
                       child: Container(
                         width: double.infinity,
-                        margin:
-                          const  EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                        height: 45,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 0),
+                        height: 45.h,
                         child: Visibility(
                           visible: myList.isEmpty ? false : true,
                           child: Container(
                             height: 0,
-                            width: 200,
+                            width: 200.w,
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 0),
                             child: ListView.builder(
@@ -215,10 +242,9 @@ class _final_homeState extends State<final_home> {
                                           Padding(
                                             padding:
                                                 const EdgeInsets.only(top: 10),
-                                            child: Text(
-                                              myList[index],
-                                              style: const TextStyle(color: Colors.white)
-                                            ),
+                                            child: Text(myList[index],
+                                                style: const TextStyle(
+                                                    color: Colors.white)),
                                           ),
                                           IconButton(
                                               onPressed: (() async {
@@ -245,51 +271,59 @@ class _final_homeState extends State<final_home> {
                         ),
                       ),
                     ),
-                  const  Padding(
-                      padding:
-                           EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                       child: Text(
                         'Genres',
-                        style: TextStyle(color: Colors.white,
+                        style: TextStyle(
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 22),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, bottom: 10),
+                      padding: const EdgeInsets.only(
+                          left: 20, bottom: 10, right: 20),
                       child: Row(
                         children: [
                           ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 15),
-                                  backgroundColor: Colors.deepOrange),
-                              onPressed: (() {}),
-                              child: const Text(
-                                'Comedy',
-                                style:  TextStyle(color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              )),
-                          const SizedBox(
-                            width: 10,
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 15),
+                                primary: const Color(0xffE32E00)),
+                            onPressed: (() {}),
+                            child: const Text(
+                              'Comedy',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.w,
                           ),
                           ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  padding:const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 15),
-                                  backgroundColor: Colors.deepPurple),
-                              onPressed: (() {}),
-                              child: const Text(
-                                'Health & Wellness',
-                                style:TextStyle(color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ))
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 15),
+                                primary: const Color(0xff850C5C)),
+                            onPressed: (() {}),
+                            child: const Text(
+                              'Health & Wellness',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
                         ],
                       ),
                     ),
@@ -299,72 +333,77 @@ class _final_homeState extends State<final_home> {
                         children: [
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 15),
-                                  backgroundColor: Colors.red),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 15),
+                                primary: const Color(0xffCA032C),
+                              ),
                               onPressed: (() {}),
                               child: const Text(
                                 'Society',
-                                style: TextStyle(color: Colors.white,
+                                style: TextStyle(
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15),
+                                    fontSize: 18),
                               )),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: 10.w,
                           ),
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15)),
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 15),
-                                  backgroundColor: Colors.green),
+                                  primary: const Color(0xff0C856F)),
                               onPressed: (() {}),
                               child: const Text(
                                 'Culture',
-                                style: TextStyle(color: Colors.white,
+                                style: TextStyle(
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15),
+                                    fontSize: 18),
                               )),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: 10.w,
                           ),
                           ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 15),
-                                  backgroundColor:
-                                      Color.fromARGB(255, 4, 75, 133)),
-                              onPressed: (() {}),
-                              child:const Text(
-                                'Technology',
-                                style: TextStyle(color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ))
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 15),
+                              primary: const Color(0xff0341AF),
+                            ),
+                            onPressed: (() {}),
+                            child: const Text(
+                              'Technology',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  const  Padding(
-                      padding:
-                           EdgeInsets.only(left: 20, top: 15, bottom: 10),
-                      child:  Text(
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, top: 15, bottom: 10),
+                      child: Text(
                         'Trending',
-                        style:  TextStyle(color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
-                      height: 150,
-                      child: Container(
-                        height: 150,
-                        width: 300,
+                      height: 150.h,
+                      child: SizedBox(
+                        height: 150.h,
+                        width: 300.w,
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -376,33 +415,36 @@ class _final_homeState extends State<final_home> {
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: const DecorationImage(
-                                      image: NetworkImage(
-                                        'https://media.istockphoto.com/id/1471715408/photo/two-young-stylish-radio-show-hosts-record-fresh-podcast-episode-in-home-loft-studio-apartment.jpg?s=612x612&w=0&k=20&c=_5o0glsgMBzhiQU6MsxGS4aYfkBPFs3NaQiTGMyBHVA=',
-                                      ),
-                                      fit: BoxFit.cover)),
+                                borderRadius: BorderRadius.circular(15),
+                                image: const DecorationImage(
+                                    image: NetworkImage(
+                                      'https://media.istockphoto.com/id/1471715408/photo/two-young-stylish-radio-show-hosts-record-fresh-podcast-episode-in-home-loft-studio-apartment.jpg?s=612x612&w=0&k=20&c=_5o0glsgMBzhiQU6MsxGS4aYfkBPFs3NaQiTGMyBHVA=',
+                                    ),
+                                    fit: BoxFit.cover),
+                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                const  Text(
+                                  const Text(
                                     '#Trending',
-                                    style:TextStyle(color: Colors.white, fontSize: 14),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
                                   ),
-                                 const Text(
+                                  const Text(
                                     'Analysis on Health Matters',
-                                    style: TextStyle(color: Colors.white,
+                                    style: TextStyle(
+                                        color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                   ),
                                   SizedBox(
-                                    height: 50,
-                                    width: 150,
+                                    // height: 50.h,
+                                    // width: 150.w,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.transparent,
+                                            primary: Colors.transparent,
                                             side: const BorderSide(
                                                 color: Colors.white, width: 2),
                                             shape: RoundedRectangleBorder(
@@ -413,10 +455,11 @@ class _final_homeState extends State<final_home> {
                                             _incrementCounter();
                                           });
                                         }),
-                                        child:const Text('Listening Now',
-                                            style:  TextStyle(color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16))),
+                                        child: const Text('Listening Now',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16))),
                                   )
                                 ],
                               ),
@@ -425,60 +468,85 @@ class _final_homeState extends State<final_home> {
                         ),
                       ),
                     ),
-                  const  Padding(
-                      padding:
-                         EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
                       child: Text(
                         'Top Podcast',
-                        style: TextStyle( color: Colors.white,
+                        style: TextStyle(
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 22),
                       ),
                     ),
-                    Container(
-                      height: 170,
-                    width: double.infinity,
-                      child: Container(
-                       
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.w),
+                      child: SizedBox(
+                        height: 200.h,
+                        width: double.infinity,
                         child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 3,
-                          itemBuilder: ((context, index) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                            height: 170,
-                            width: 250,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 110,
-                                  width: 250,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 3,
+                            itemBuilder: ((context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Podcast()),
+                                  );
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      top: 10.0,
+                                      bottom: 10.0,
+                                      left: 0.00,
+                                      right: 25.00),
+                                  height: 200.h,
+                                  width: 250.w,
                                   decoration: BoxDecoration(
-                                    image: const DecorationImage(image: 
-                                    NetworkImage('https://media.istockphoto.com/id/1420789680/vector/girl-in-headphones-speaks-into-the-microphone-recording-podcast-in-studio-radio-broadcasting.jpg?s=612x612&w=0&k=20&c=DyUAJFWEBaaTmkhDHJkq4maVoqim1H76ZBQC3zHmN14='),fit: BoxFit.cover),
-                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 120.h,
+                                        width: 250.w,
+                                        decoration: BoxDecoration(
+                                          image: const DecorationImage(
+                                              image: NetworkImage(
+                                                  'https://media.istockphoto.com/id/1420789680/vector/girl-in-headphones-speaks-into-the-microphone-recording-podcast-in-studio-radio-broadcasting.jpg?s=612x612&w=0&k=20&c=DyUAJFWEBaaTmkhDHJkq4maVoqim1H76ZBQC3zHmN14='),
+                                              fit: BoxFit.cover),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
                                       ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 11.h, horizontal: 11.w),
+                                        child: const Text(
+                                          'Brunch-Talk',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                             const   Padding(
-                                  padding:  EdgeInsets.all(8.0),
-                                  child: Text('Brunch-Talk' ,style:TextStyle(color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15)),
-                                )
-                              ],
-                            ),
-                          );
-                        })),
+                              );
+                            })),
                       ),
                     )
                   ],
                 ),
               ));
-        })));
+        })),
+      ),
+      bottomNavigationBar: const bottom(),
+    );
   }
 }

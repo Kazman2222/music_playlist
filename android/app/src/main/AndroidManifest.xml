@@ -4,7 +4,7 @@
    <application
         android:label="audio_playlist"
         android:name="${applicationName}"
-        andriod:usesCleartextTraffic="true"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
