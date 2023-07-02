@@ -171,7 +171,7 @@ class _RadioPageState extends State<radio> {
                   children: [
                     RadioSelector(
                       radioChanel: 'Cool FM',
-                      radioStation: '99.6',
+                      radioStation: '99.1',
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
                     ),
@@ -190,14 +190,14 @@ class _RadioPageState extends State<radio> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RadioSelector(
-                      radioChanel: 'Jazz FM',
-                      radioStation: '106.5',
+                      radioChanel: 'Wazobia FM',
+                      radioStation: '107.9',
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
                     ),
                     RadioSelector(
-                      radioChanel: 'RayMax FM',
-                      radioStation: '91.3',
+                      radioChanel: 'Naija FM',
+                      radioStation: '99.3',
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
                     ),
@@ -210,14 +210,34 @@ class _RadioPageState extends State<radio> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RadioSelector(
-                      radioChanel: 'Cool FM',
-                      radioStation: '99.6',
+                      radioChanel: 'Classic FM',
+                      radioStation: '97.3',
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
                     ),
                     RadioSelector(
-                      radioChanel: 'Max FM',
-                      radioStation: '103.5',
+                      radioChanel: 'Radio FM',
+                      radioStation: '92.3',
+                      // checker: tapper,
+                      // onTap: toggleContainerVisibility,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RadioSelector(
+                      radioChanel: 'Beat FM',
+                      radioStation: '92.9',
+                      // checker: tapper,
+                      // onTap: toggleContainerVisibility,
+                    ),
+                    RadioSelector(
+                      radioChanel: 'Love FM',
+                      radioStation: '104.9',
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
                     ),
@@ -328,7 +348,7 @@ class _RadioSelectorState extends State<RadioSelector> {
                     child: Icon(
                       hearts ? Icons.favorite : Icons.favorite_outline_sharp,
                       color: Colors.green,
-                      size: 35,
+                      size: 30,
                     ),
                   ),
                 ],
