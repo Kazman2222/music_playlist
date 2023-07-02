@@ -2,6 +2,8 @@ import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
 import 'package:audio_playlist/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../artistesdetails/profile.dart';
+
 class playlist extends StatefulWidget {
   const playlist({super.key});
 
@@ -29,15 +31,24 @@ class _playlistState extends State<playlist> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      children: const [
-                        CircleAvatar(
-                          backgroundColor: Color.fromARGB(255, 71, 224, 76),
-                          radius: 20,
-                          child: Text('J',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.black)),
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const profilePage()),
+                            );
+                          },
+                          child: const CircleAvatar(
+                            backgroundColor: Color.fromARGB(255, 71, 224, 76),
+                            radius: 20,
+                            child: Text('J',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.black)),
+                          ),
                         ),
                         SizedBox(
                           width: 10,

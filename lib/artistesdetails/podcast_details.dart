@@ -23,8 +23,8 @@ class _PodcastState extends State<Podcast> {
           text: 'Podcast Details', onTap: () => Navigator.pop(context)),
       body: Container(
         margin: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
-        child: ListView(children: [
-          Column(
+        child: SingleChildScrollView(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -287,7 +287,7 @@ class _PodcastState extends State<Podcast> {
               ),
             ],
           ),
-        ]),
+        ),
       ),
     );
   }

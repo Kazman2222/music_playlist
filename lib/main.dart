@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             create: ((context) => AudioManagement()),
             builder: ((context, child) {
               return MaterialApp(
-                initialRoute: routeManager.loginPages,
+                initialRoute: routeManager.radioPages,
                 onGenerateRoute: routeManager.routeSettings,
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Demo',
@@ -48,9 +48,21 @@ class MyApp extends StatelessWidget {
                   primarySwatch: Colors.blue,
                   fontFamily: 'Inter',
                 ),
+                builder: (context, child) {
+                  return ScrollConfiguration(
+                      behavior: AppBehavior(), child: child!);
+                },
               );
             }),
           );
         });
+  }
+}
+
+class AppBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
   }
 }

@@ -98,10 +98,11 @@ class _final_homeState extends State<final_home> {
                                     builder: (context) => const profilePage()),
                               );
                             },
-                            child: const CircleAvatar(
-                              backgroundColor: Color.fromARGB(255, 71, 224, 76),
-                              radius: 20,
-                              child: Text('J',
+                            child: CircleAvatar(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 71, 224, 76),
+                              radius: 20.r,
+                              child: const Text('J',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
@@ -116,9 +117,6 @@ class _final_homeState extends State<final_home> {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {},
-                              ),
-                              SizedBox(
-                                width: 5.w,
                               ),
                               IconButton(
                                 icon: const Icon(

@@ -1,5 +1,6 @@
 import 'package:audio_playlist/constants.dart';
 import 'package:audio_playlist/constants.dart';
+import 'package:audio_playlist/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -85,7 +86,13 @@ class _logoutState extends State<logout> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           primary: Colors.green),
-                      onPressed: (() {}),
+                      onPressed: (() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Login()),
+                        );
+                      }),
                       child: const Text(
                         'Log Out',
                         style: TextStyle(
