@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:audio_playlist/artistesdetails/artise_details.dart';
+import 'package:audio_playlist/home/categories.dart';
 import 'package:audio_playlist/home/final_home.dart';
 import 'package:audio_playlist/home/playlist.dart';
 import 'package:audio_playlist/home/radio.dart';
@@ -17,7 +18,7 @@ class bottom extends StatefulWidget {
 }
 
 class _homePageState extends State<bottom> {
-  final pages = [const final_home(), const playlist(), final_home(), const radio()];
+  final pages = [const final_home(), const playlist(), const categories(), const radio()];
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {

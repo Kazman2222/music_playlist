@@ -1,4 +1,3 @@
-import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
 import 'package:audio_playlist/routes/routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +5,14 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginState extends State<Login> {
+class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,14 +56,14 @@ class _LoginState extends State<Login> {
                         Text(
                           'Login',
                           style: GoogleFonts.inter(
-                              color: Color.fromARGB(255, 92, 235, 97),
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                         ),
                         Text(
                           'Sign up',
                           style: GoogleFonts.inter(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 92, 235, 97),
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                         )
@@ -156,9 +155,12 @@ class _LoginState extends State<Login> {
                                   borderRadius: BorderRadius.circular(15)),
                               backgroundColor:
                                   Color.fromARGB(255, 57, 213, 63)),
-                          onPressed: (() {}),
+                          onPressed: (() {
+                            Navigator.of(context)
+                                .pushNamed(routeManager.loginUp);
+                          }),
                           child: const Text(
-                            'Login',
+                            'Sign up',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -169,33 +171,16 @@ class _LoginState extends State<Login> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Center(
-                      child: Text('Forgot your password?',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 57, 213, 63),
-                              decoration: TextDecoration.underline))),
                   const SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: IconButton(
-                      iconSize: 110,
-                      color: const Color.fromARGB(255, 57, 213, 63),
-                      icon: const Icon(Icons.fingerprint),
-                      onPressed: () {},
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                   Center(
                     child: RichText(
-                        text: TextSpan(
-                            text: 'Dont have an account?',
+                        text:  TextSpan(
+                            text: ' Have an account?',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: Color.fromARGB(255, 57, 213, 63)),
                             children: [
                           WidgetSpan(
                             child: SizedBox(
@@ -203,17 +188,17 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           TextSpan(
-                              recognizer: TapGestureRecognizer()
+                             recognizer: TapGestureRecognizer()
                                 ..onTap = (() {
                                   Navigator.of(context)
-                                      .pushNamed(routeManager.signUp);
+                                      .pushNamed(routeManager.loginUp);
                                 }),
-                              text: 'Sign up',
+                              text: 'Log in',
                               style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                                 decoration: TextDecoration.underline,
-                                decorationColor: Color.fromARGB(255, 57, 213, 63),
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 57, 213, 63)))
+                              ))
                         ])),
                   )
                 ],
