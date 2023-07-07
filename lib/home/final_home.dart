@@ -1,6 +1,7 @@
 import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
 import 'package:audio_playlist/constants.dart';
 import 'package:audio_playlist/state_management/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -55,13 +56,34 @@ class _final_homeState extends State<final_home> {
     });
   }
 
+  final _auth = FirebaseAuth.instance;
+  late User loggedInUser;
+
   @override
   void initState() {
     super.initState();
     loadCounter();
+
+    getCurrentUser();
+  }
+
+  getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+
+        String? displayName = loggedInUser.email;
+        return {displayName};
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   Widget build(BuildContext context) {
+    String displayName = getCurrentUser as String;
+    String profileName = displayName[0];
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -102,8 +124,8 @@ class _final_homeState extends State<final_home> {
                               backgroundColor:
                                   const Color.fromARGB(255, 71, 224, 76),
                               radius: 20.r,
-                              child: const Text('J',
-                                  style: TextStyle(
+                              child: Text(profileName.toUpperCase(),
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
                                       color: Colors.black)),

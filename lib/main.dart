@@ -8,11 +8,14 @@ import 'package:audio_playlist/login/login.dart';
 import 'package:audio_playlist/login/logout.dart';
 import 'package:audio_playlist/routes/routes.dart';
 import 'package:audio_playlist/state_management/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
             create: ((context) => AudioManagement()),
             builder: ((context, child) {
               return MaterialApp(
-                initialRoute: routeManager.radioPages,
+                initialRoute: routeManager.loginPages,
                 onGenerateRoute: routeManager.routeSettings,
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Demo',

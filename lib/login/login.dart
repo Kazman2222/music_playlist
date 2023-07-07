@@ -1,7 +1,9 @@
+import 'package:audio_playlist/authentication/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:biometric_fingerprint/biometric_fingerprint.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../constants.dart';
 import '../home/final_home.dart';
@@ -14,6 +16,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late String email = '';
+  late String password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,8 +90,11 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: SizedBox(
                   child: TextField(
-                    onSubmitted: (value) {},
+                    onSubmitted: (value) async {
+                      email = value;
+                    },
                     textAlign: TextAlign.start,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: kTextFieldDecoration.copyWith(
                       prefixIcon: const Icon(
                         Icons.email_outlined,
@@ -107,7 +114,7 @@ class _LoginState extends State<Login> {
               const Padding(
                 padding: EdgeInsets.only(left: 35, bottom: 5),
                 child: Text(
-                  'Password*',
+                  'New Password*',
                   style: TextStyle(
                     color: Color.fromARGB(255, 99, 241, 104),
                     fontSize: 14,
@@ -119,8 +126,11 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: SizedBox(
                   child: TextField(
-                    onSubmitted: (value) {},
+                    onSubmitted: (value) async {
+                      password = value;
+                    },
                     textAlign: TextAlign.start,
+                    obscureText: true,
                     decoration: kTextFieldDecoration.copyWith(
                       prefixIcon: const Icon(
                         Icons.key_outlined,
@@ -142,25 +152,7 @@ class _LoginState extends State<Login> {
                 child: SizedBox(
                   width: double.infinity,
                   height: 50.h,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          primary: const Color.fromARGB(255, 57, 213, 63)),
-                      onPressed: (() {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const final_home()),
-                        );
-                      }),
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 18),
-                      )),
+                  child: signUpButton(context, email, password),
                 ),
               ),
               SizedBox(
