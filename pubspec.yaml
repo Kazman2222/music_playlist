@@ -42,9 +42,14 @@ dependencies:
   flutter_screenutil: ^5.7.0
   biometric_fingerprint: ^0.0.7
   flutter_svg: ^1.1.6
+  sizer : ^2.0.15
   firebase_core: ^2.8.0
   cloud_firestore: ^4.4.5
   firebase_auth: ^4.3.0
+  google_fonts: ^3.0.1
+  url_launcher: ^6.1.7
+  simple_fontellico_progress_dialog: ^0.3.0
+  vibration: ^1.7.5
 
 dev_dependencies:
   flutter_test:

@@ -1,12 +1,19 @@
-import 'package:audio_playlist/authentication/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:biometric_fingerprint/biometric_fingerprint.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:audio_playlist/routes/routes.dart';
+import '../bottomnavigationbar/bottomnavigationbar.dart';
+import '../components/buttons.dart';
 import '../constants.dart';
 import '../home/final_home.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+// import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
+// import 'package:flutter/services.dart';
+import 'package:vibration/vibration.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -16,10 +23,22 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  late String email = '';
-  late String password = '';
+  bool seer = false;
+  bool showSpinner = false;
+
+  static Future<void> heavyImpact() async {
+    await SystemChannels.platform.invokeMethod<void>(
+      'HapticFeedback.vibrate',
+      'HapticFeedbackType.heavyImpact',
+    );
+  }
+
+  // final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    // SimpleFontelicoProgressDialog _dialog =
+    //     SimpleFontelicoProgressDialog(context: context);
     return Scaffold(
       backgroundColor: kBackGroundColour,
       body: SafeArea(
@@ -90,9 +109,7 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: SizedBox(
                   child: TextField(
-                    onSubmitted: (value) async {
-                      email = value;
-                    },
+                    onSubmitted: (value) {},
                     textAlign: TextAlign.start,
                     keyboardType: TextInputType.emailAddress,
                     decoration: kTextFieldDecoration.copyWith(
@@ -114,7 +131,7 @@ class _LoginState extends State<Login> {
               const Padding(
                 padding: EdgeInsets.only(left: 35, bottom: 5),
                 child: Text(
-                  'New Password*',
+                  'Password*',
                   style: TextStyle(
                     color: Color.fromARGB(255, 99, 241, 104),
                     fontSize: 14,
@@ -126,11 +143,9 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: SizedBox(
                   child: TextField(
-                    onSubmitted: (value) async {
-                      password = value;
-                    },
+                    onSubmitted: (value) {},
                     textAlign: TextAlign.start,
-                    obscureText: true,
+                    obscureText: seer,
                     decoration: kTextFieldDecoration.copyWith(
                       prefixIcon: const Icon(
                         Icons.key_outlined,
@@ -140,6 +155,18 @@ class _LoginState extends State<Login> {
                       filled: true,
                       fillColor: Colors.grey,
                       hintText: 'Enter Password',
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            seer = !seer;
+                          });
+                        },
+                        child: Icon(
+                          seer ? Icons.visibility : Icons.visibility_off,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -151,8 +178,32 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: SizedBox(
                   width: double.infinity,
-                  height: 50.h,
-                  child: signUpButton(context, email, password),
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        primary: const Color.fromARGB(255, 57, 213, 63)),
+                    onPressed: (() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const bottom()),
+                      );
+                      // HapticFeedback.heavyImpact();
+                      // showAlertDialog(context);
+                      // setState(() {
+                      //   showSpinner = true;
+                      // });
+                      // heavyImpact();
+                    }),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 18),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(
@@ -194,20 +245,21 @@ class _LoginState extends State<Login> {
                           width: 5.w,
                         ),
                       ),
-                      const TextSpan(
-                        text: 'SIGN UP',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 57, 213, 63),
-                        ),
-                      ),
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = (() {
+                              Navigator.of(context)
+                                  .pushNamed(routeManager.signUp);
+                            }),
+                          text: 'SIGN UP',
+                          style: const TextStyle(
+                              decorationColor: Color.fromARGB(255, 57, 213, 63),
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 57, 213, 63)))
                     ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
+              )
             ],
           ),
         ),

@@ -1,51 +1,33 @@
-import 'package:audio_playlist/artistesdetails/podcast_details.dart';
+import 'package:audio_playlist/artistesdetails/artiste_profile.dart';
+import 'package:audio_playlist/audiio_player.dart';
+import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
+import 'package:audio_playlist/home/categories.dart';
+import 'package:audio_playlist/home/final_home.dart';
+import 'package:audio_playlist/home/radio.dart';
+import 'package:audio_playlist/login/login.dart';
+import 'package:audio_playlist/login/signUp.dart';
+import 'package:audio_playlist/popUps/premiumPop.dart';
 import 'package:flutter/material.dart';
 
-import '../adminPanel/admin_panel.dart';
-// import '../bottomnavigationbar/bottomnavigationbar.dart';
-import '../home/final_home.dart';
-import '../home/playlist.dart';
-import '../home/radio.dart';
-import '../login/login.dart';
-import '../login/logout.dart';
-import '../artistesdetails/profile.dart';
-
 class routeManager {
-  static const String homePages = '/'; //*cleared
-  static const String loginPages = '/login';
-  static const String logoutPages = '/logout';
-  static const String radioPages = '/radio'; //*cleared
-  static const String adminpanelPages = '/admin';
-  static const String playlistPages = '/playlist'; //*cleared
-  static const String profilePages = '/profile';
-  static const String profilepodcastPages = '/podcast_details';
-
+  static const String homePages = '/';
+  static const String signUp = '/signup';
+  static const String loginUp = '/loginup';
+  static const String premiumPopUp = '/premiumPop';
+  static const String artisteProfile = '/artistProfile';
+  // PremiumSub
   static Route<dynamic> routeSettings(RouteSettings settings) {
     switch (settings.name) {
       case homePages:
-        return MaterialPageRoute(builder: ((context) => const final_home()));
-
-      case loginPages:
+        return MaterialPageRoute(builder: ((context) => const bottom()));
+      case signUp:
+        return MaterialPageRoute(builder: ((context) => const Signup()));
+      case loginUp:
         return MaterialPageRoute(builder: ((context) => const Login()));
-
-      case logoutPages:
-        return MaterialPageRoute(builder: ((context) => const logout()));
-
-      case adminpanelPages:
-        return MaterialPageRoute(builder: ((context) => const adminPanel()));
-
-      case radioPages:
-        return MaterialPageRoute(builder: ((context) => const radio()));
-
-      case playlistPages:
-        return MaterialPageRoute(builder: ((context) => const playlist()));
-
-      case profilePages:
-        return MaterialPageRoute(builder: ((context) => const profilePage()));
-
-      case profilepodcastPages:
-        return MaterialPageRoute(builder: ((context) => const Podcast()));
-
+      case premiumPopUp:
+        return MaterialPageRoute(builder: ((context) => const PremiumSub()));
+      case artisteProfile:
+        return MaterialPageRoute(builder: ((context) => const ArtistProfile()));
       default:
         throw const FormatException('no route found');
     }

@@ -1,6 +1,7 @@
 import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
 import 'package:audio_playlist/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../artistesdetails/profile.dart';
 
@@ -26,7 +27,8 @@ class _playlistState extends State<playlist> {
                 height: 10,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 10, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -40,20 +42,21 @@ class _playlistState extends State<playlist> {
                                   builder: (context) => const profilePage()),
                             );
                           },
-                          child: const CircleAvatar(
-                            backgroundColor: Color.fromARGB(255, 71, 224, 76),
-                            radius: 20,
-                            child: Text('J',
+                          child: CircleAvatar(
+                            backgroundColor:
+                                const Color.fromARGB(255, 71, 224, 76),
+                            radius: 20.r,
+                            child: const Text('J',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
                                     color: Colors.black)),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        Text('Your Playlist',
+                        const Text('Your Playlist',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -273,7 +276,6 @@ class _playlistState extends State<playlist> {
           ),
         ),
       ),
-      bottomNavigationBar: const bottom(),
     );
   }
 }

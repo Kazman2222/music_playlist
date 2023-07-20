@@ -1,4 +1,5 @@
 import 'package:audio_playlist/constants.dart';
+import 'package:audio_playlist/home/final_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,13 +25,17 @@ class _profilePageState extends State<profilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 20.h,
+              height: 10.h,
             ),
             Center(
-              child: Image.asset(
-                "assets/pics/profileAvatar.png",
+              child: Container(
+                decoration: const BoxDecoration(shape: BoxShape.circle),
                 height: 200.h,
                 width: 200.w,
+                child: Image.asset(
+                  "assets/pics/premium.png",
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             SizedBox(
@@ -67,9 +72,6 @@ class _profilePageState extends State<profilePage> {
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10.h,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.h),
@@ -176,8 +178,17 @@ class _profilePageState extends State<profilePage> {
                   ),
                   buildPadding(),
                   InkButton(
-                    icon1: Icons.upload,
-                    text1: 'Upload',
+                    icon1: Icons.info_outline,
+                    text1: 'About',
+                    onTap: () {
+                      Navigator.pushNamed(context, '/artistProfile');
+                    },
+                    icon2: Icons.arrow_forward_ios,
+                  ),
+                  buildPadding(),
+                  InkButton(
+                    icon1: Icons.thumb_up_alt_outlined,
+                    text1: 'Accolades',
                     onTap: () {
                       null;
                     },

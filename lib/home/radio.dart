@@ -1,11 +1,11 @@
 import 'dart:math';
 
+import 'package:audio_playlist/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../artistesdetails/profile.dart';
+
 import '../bottomnavigationbar/bottomnavigationbar.dart';
-import '../constants.dart';
 
 class radio extends StatefulWidget {
   const radio({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _RadioPageState extends State<radio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackGroundColour,
+      backgroundColor: Colors.black,
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(
@@ -45,7 +45,7 @@ class _RadioPageState extends State<radio> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const profilePage(),
+                            builder: (context) => const Login(),
                           ),
                         );
                       },
@@ -248,7 +248,7 @@ class _RadioPageState extends State<radio> {
           ),
         ),
       ),
-      bottomNavigationBar: const bottom(),
+      
     );
   }
 }

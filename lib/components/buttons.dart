@@ -102,3 +102,104 @@ AppBar buildAppBars({required String text, required VoidCallback onTap}) {
     ),
   );
 }
+
+AppBar buildAppBarsVerified(
+    {required String text,
+    required VoidCallback onTap,
+    required bool verification}) {
+  verified(bool verify) {
+    if (verify == true) {
+      return Row(
+        children: const [
+          SizedBox(
+            width: 3,
+          ),
+          Icon(
+            Icons.verified,
+            size: 15,
+            color: Colors.greenAccent,
+          )
+        ],
+      );
+    } else {
+      return const SizedBox(
+        width: 3,
+      );
+    }
+  }
+
+  return AppBar(
+    backgroundColor: kBackGroundColour,
+    centerTitle: true,
+    leading: GestureDetector(
+      onTap: onTap,
+      child: const Icon(
+        Icons.arrow_back_ios,
+        color: Colors.white,
+      ),
+    ),
+    titleSpacing: 0,
+    title: Row(
+      children: [
+        Text(
+          text,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        verified(verification)
+      ],
+    ),
+  );
+}
+
+void showAlertDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: kBackGroundColour,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        title: const Center(
+          child: Icon(
+            Icons.dangerous,
+            size: 60,
+            color: Colors.red,
+          ),
+        ),
+        content: const Text(
+          'Password isn\'t a match!',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.green, fontSize: 22),
+        ),
+        actions: [
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: TextButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    primary: const Color.fromARGB(255, 57, 213, 63),
+                    padding: EdgeInsets.all(15)),
+                onPressed: () {
+                  // Perform an action when the user presses the button
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text(
+                  'RETURN',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 18),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}

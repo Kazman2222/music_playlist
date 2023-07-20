@@ -34,50 +34,64 @@ class _MyWidgetState extends State<adminPanel> {
                 child: Column(
                   children: [
                     InkButton(
-                        icon1: Icons.app_registration,
-                        text1: 'Dashboard',
-                        onTap: () {
-                          null;
-                        }),
+                      icon1: Icons.app_registration,
+                      text1: 'Dashboard',
+                      onTap: () {
+                        null;
+                      },
+                    ),
                     buildPadding(),
                     InkButton(
-                        icon1: Icons.account_box,
-                        text1: 'Manage Podcast',
-                        onTap: () {
-                          null;
-                        }),
+                      icon1: Icons.upload,
+                      text1: 'Upload Music',
+                      onTap: () {
+                        null;
+                      },
+                    ),
                     buildPadding(),
                     InkButton(
-                        icon1: Icons.add,
-                        text1: 'Add New Podcast',
-                        onTap: () {
-                          null;
-                        }),
+                      icon1: Icons.account_box,
+                      text1: 'Manage Podcast',
+                      onTap: () {
+                        null;
+                      },
+                    ),
                     buildPadding(),
                     InkButton(
-                        icon1: Icons.graphic_eq,
-                        text1: 'Analytics',
-                        onTap: () {
-                          null;
-                        }),
+                      icon1: Icons.add,
+                      text1: 'Add New Podcast',
+                      onTap: () {
+                        null;
+                      },
+                    ),
                     buildPadding(),
                     InkButton(
-                        icon1: Icons.settings,
-                        text1: 'Settings',
-                        onTap: () {
-                          null;
-                        }),
+                      icon1: Icons.graphic_eq,
+                      text1: 'Analytics',
+                      onTap: () {
+                        null;
+                      },
+                    ),
                     buildPadding(),
                     InkButton(
-                        icon1: Icons.logout,
-                        text1: 'Log-Out',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const logout()),
-                          );
-                        }),
+                      icon1: Icons.settings,
+                      text1: 'Settings',
+                      onTap: () {
+                        null;
+                      },
+                    ),
+                    buildPadding(),
+                    InkButton(
+                      icon1: Icons.logout,
+                      text1: 'Log-Out',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const logout()),
+                        );
+                      },
+                    ),
                     buildPadding(),
                   ],
                 ),

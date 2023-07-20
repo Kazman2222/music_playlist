@@ -1,7 +1,6 @@
 import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
 import 'package:audio_playlist/constants.dart';
 import 'package:audio_playlist/state_management/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,6 +11,8 @@ import 'package:provider/provider.dart';
 import '../adminPanel/admin_panel.dart';
 import '../artistesdetails/podcast_details.dart';
 import '../artistesdetails/profile.dart';
+import '../popUps/audiencefeeds.dart';
+import '../popUps/premiumPop.dart';
 
 class final_home extends StatefulWidget {
   const final_home({super.key});
@@ -56,34 +57,14 @@ class _final_homeState extends State<final_home> {
     });
   }
 
-  final _auth = FirebaseAuth.instance;
-  late User loggedInUser;
-
   @override
   void initState() {
     super.initState();
     loadCounter();
-
-    getCurrentUser();
   }
 
-  getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser;
-      if (user != null) {
-        loggedInUser = user;
-
-        String? displayName = loggedInUser.email;
-        return {displayName};
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
+  @override
   Widget build(BuildContext context) {
-    String displayName = getCurrentUser as String;
-    String profileName = displayName[0];
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -124,8 +105,8 @@ class _final_homeState extends State<final_home> {
                               backgroundColor:
                                   const Color.fromARGB(255, 71, 224, 76),
                               radius: 20.r,
-                              child: Text(profileName.toUpperCase(),
-                                  style: const TextStyle(
+                              child: const Text('J',
+                                  style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
                                       color: Colors.black)),
@@ -138,7 +119,14 @@ class _final_homeState extends State<final_home> {
                                   Icons.notifications_active,
                                   color: Colors.white,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PremiumSub()),
+                                  );
+                                },
                               ),
                               IconButton(
                                 icon: const Icon(
@@ -429,40 +417,42 @@ class _final_homeState extends State<final_home> {
                           scrollDirection: Axis.horizontal,
                           itemCount: 10,
                           itemBuilder: ((context, index) {
-                            return Container(
-                              margin:
-                                  const EdgeInsets.only(left: 20, right: 10),
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                image: const DecorationImage(
-                                    image: NetworkImage(
-                                      'https://media.istockphoto.com/id/1471715408/photo/two-young-stylish-radio-show-hosts-record-fresh-podcast-episode-in-home-loft-studio-apartment.jpg?s=612x612&w=0&k=20&c=_5o0glsgMBzhiQU6MsxGS4aYfkBPFs3NaQiTGMyBHVA=',
+                            return GestureDetector(
+                              onTap: () => feedsBottomSheet(context),
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.only(left: 20, right: 10),
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  image: const DecorationImage(
+                                      image: NetworkImage(
+                                        'https://media.istockphoto.com/id/1471715408/photo/two-young-stylish-radio-show-hosts-record-fresh-podcast-episode-in-home-loft-studio-apartment.jpg?s=612x612&w=0&k=20&c=_5o0glsgMBzhiQU6MsxGS4aYfkBPFs3NaQiTGMyBHVA=',
+                                      ),
+                                      fit: BoxFit.cover),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    const Text(
+                                      '#Trending',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14),
                                     ),
-                                    fit: BoxFit.cover),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Text(
-                                    '#Trending',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 14),
-                                  ),
-                                  const Text(
-                                    'Analysis on Health Matters',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  SizedBox(
-                                    // height: 50.h,
-                                    // width: 150.w,
-                                    child: ElevatedButton(
+                                    const Text(
+                                      'Genre Revolution: Shattering Boundaries,\nUnleashing a New Era of Sound!',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      // height: 50.h,
+                                      // width: 150.w,
+                                      child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             primary: Colors.transparent,
                                             side: const BorderSide(
@@ -475,13 +465,17 @@ class _final_homeState extends State<final_home> {
                                             _incrementCounter();
                                           });
                                         }),
-                                        child: const Text('Listening Now',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16))),
-                                  )
-                                ],
+                                        child: const Text(
+                                          'Listening Now',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           }),
@@ -566,7 +560,6 @@ class _final_homeState extends State<final_home> {
               ));
         })),
       ),
-      bottomNavigationBar: const bottom(),
     );
   }
 }

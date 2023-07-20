@@ -24,11 +24,11 @@ class _audio_playerState extends State<audio_player> {
   void initState() {
     super.initState();
     setAudio();
-    // audioPlayer.onPlayerStateChanged.listen((event) {
-    //   setState(() {
-    //   isPlaying = event == PlayerState.playing;
-    // });
-    //  });
+    audioPlayer.onPlayerStateChanged.listen((event) {
+      setState(() {
+        isPlaying = event == PlayerState.playing;
+      });
+    });
 
     audioPlayer.onDurationChanged.listen((newDuration) {
       setState(() {
@@ -48,13 +48,16 @@ class _audio_playerState extends State<audio_player> {
     audioPlayer.seek(newDurations);
   }
 
-  int count = 3;
+  int count = 0;
 
   Future setAudio() async {
     audioPlayer.setReleaseMode(ReleaseMode.loop);
     final player = AudioCache(prefix: 'lib/audio/');
     final url = await player.load(music[count]);
     audioPlayer.setSourceUrl(url.path);
+    //if (isPlaying != false) {
+    //  audioPlayer.resume();
+    //  }
   }
 
   @override
@@ -91,25 +94,15 @@ class _audio_playerState extends State<audio_player> {
                 shrinkWrap: true,
                 itemCount: music.length,
                 itemBuilder: ((context, index) {
-                  return ElevatedButton.icon(
-                    label: Text('play'),
-                    onPressed: (() async {
-                      if (isPlaying == false) {
-                        await audioPlayer.resume();
-                        setState(() {
-                          isPlaying = true;
-                        });
-                      } else {
-                        await audioPlayer.pause();
+                  return ElevatedButton(
+                      onPressed: (() {
+                        count = index;
+                        setAudio();
                         setState(() {
                           isPlaying = false;
                         });
-                      }
-                    }),
-                    icon: isPlaying == false
-                        ? Icon(Icons.play_arrow)
-                        : Icon(Icons.pause),
-                  );
+                      }),
+                      child: Text('play'));
                 })),
           ),
           Row(
@@ -117,7 +110,10 @@ class _audio_playerState extends State<audio_player> {
               ElevatedButton(
                   onPressed: (() async {
                     setState(() {
-                      count = 1;
+                      count--;
+                      if (count <= music.length) {
+                        count = 0;
+                      }
                       setAudio();
                       isPlaying = false;
                     });
@@ -126,13 +122,36 @@ class _audio_playerState extends State<audio_player> {
               ElevatedButton(
                   onPressed: (() async {
                     setState(() {
-                      count = 2;
+                      count++;
+                      if (count >= music.length) {
+                        count = 0;
+                      }
+
                       setAudio();
                       isPlaying = false;
                       print(count);
                     });
                   }),
-                  child: Text('next'))
+                  child: Text('next')),
+              ElevatedButton.icon(
+                label: Text('play'),
+                onPressed: (() async {
+                  if (isPlaying == false) {
+                    await audioPlayer.resume();
+                    setState(() {
+                      isPlaying = true;
+                    });
+                  } else {
+                    await audioPlayer.pause();
+                    setState(() {
+                      isPlaying = false;
+                    });
+                  }
+                }),
+                icon: isPlaying == false
+                    ? Icon(Icons.play_arrow)
+                    : Icon(Icons.pause),
+              )
             ],
           )
         ],
