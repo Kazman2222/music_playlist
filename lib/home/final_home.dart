@@ -359,20 +359,21 @@ class _final_homeState extends State<final_home> {
                             width: 10.w,
                           ),
                           ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 15),
-                                  primary: const Color(0xff0C856F)),
-                              onPressed: (() {}),
-                              child: const Text(
-                                'Culture',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              )),
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 15),
+                                primary: const Color(0xff0C856F)),
+                            onPressed: (() {}),
+                            child: const Text(
+                              'Culture',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ),
                           SizedBox(
                             width: 10.w,
                           ),
@@ -408,10 +409,10 @@ class _final_homeState extends State<final_home> {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      height: 150.h,
+                      height: 160,
                       child: SizedBox(
-                        height: 150.h,
-                        width: 300.w,
+                        height: 160,
+                        width: 300,
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -424,6 +425,7 @@ class _final_homeState extends State<final_home> {
                                     const EdgeInsets.only(left: 20, right: 10),
                                 padding:
                                     const EdgeInsets.only(left: 10, right: 10),
+                                width: 350,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                   image: const DecorationImage(
@@ -437,13 +439,18 @@ class _final_homeState extends State<final_home> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
                                     const Text(
                                       '#Trending',
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 14),
+                                          color: Colors.green,
+                                          fontSize: 14.5,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     const Text(
-                                      'Genre Revolution: Shattering Boundaries,\nUnleashing a New Era of Sound!',
+                                      'Genre Revolution: Shattering Boundaries,Unleashing a New Era of Sound!',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
@@ -473,7 +480,7 @@ class _final_homeState extends State<final_home> {
                                               fontSize: 16),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),

@@ -56,7 +56,7 @@ class _profilePageState extends State<profilePage> {
             Center(
               child: SizedBox(
                 height: 60.h,
-                width: 180.w,
+                width: 190.w,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

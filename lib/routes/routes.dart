@@ -6,8 +6,12 @@ import 'package:audio_playlist/home/final_home.dart';
 import 'package:audio_playlist/home/radio.dart';
 import 'package:audio_playlist/login/login.dart';
 import 'package:audio_playlist/login/signUp.dart';
+import 'package:audio_playlist/onboarding/onboard_1.dart';
+import 'package:audio_playlist/onboarding/onboard_2.dart';
 import 'package:audio_playlist/popUps/premiumPop.dart';
 import 'package:flutter/material.dart';
+
+import '../onboarding/onboard_3.dart';
 
 class routeManager {
   static const String homePages = '/';
@@ -15,6 +19,9 @@ class routeManager {
   static const String loginUp = '/loginup';
   static const String premiumPopUp = '/premiumPop';
   static const String artisteProfile = '/artistProfile';
+  static const String onboarding1 = '/onboard1';
+  static const String onboarding2 = '/onboard2';
+  static const String onboarding3 = '/onboard3';
   // PremiumSub
   static Route<dynamic> routeSettings(RouteSettings settings) {
     switch (settings.name) {
@@ -28,6 +35,12 @@ class routeManager {
         return MaterialPageRoute(builder: ((context) => const PremiumSub()));
       case artisteProfile:
         return MaterialPageRoute(builder: ((context) => const ArtistProfile()));
+      case onboarding1:
+        return MaterialPageRoute(builder: ((context) => const Onboarding()));
+      case onboarding2:
+        return MaterialPageRoute(builder: ((context) => const Onboarding2()));
+      case onboarding3:
+        return MaterialPageRoute(builder: ((context) => const Onboarding3()));
       default:
         throw const FormatException('no route found');
     }

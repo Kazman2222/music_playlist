@@ -3,6 +3,7 @@ import 'package:audio_playlist/constants.dart';
 import 'package:audio_playlist/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../components/buttons.dart';
 
@@ -62,18 +63,19 @@ class _logoutState extends State<logout> {
                   width: 120,
                   height: 45,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          primary: Colors.black),
-                      onPressed: (() {}),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 21,
-                            fontWeight: FontWeight.bold),
-                      )),
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        primary: Colors.black),
+                    onPressed: (() {}),
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   width: 10,

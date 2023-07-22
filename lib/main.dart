@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             create: ((context) => AudioManagement()),
             builder: ((context, child) {
               return MaterialApp(
-                initialRoute: routeManager.loginUp,
+                initialRoute: routeManager.onboarding1,
                 onGenerateRoute: routeManager.routeSettings,
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Demo',

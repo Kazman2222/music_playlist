@@ -211,8 +211,8 @@ class _PodcastState extends State<Podcast> {
                           ),
                         ),
                         SizedBox(
-                          height: 75.h,
-                          width: 170.w,
+                          height: 65.h,
+                          width: 165,
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -303,66 +303,69 @@ Widget podcastInfo() {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            height: 90.h,
-            width: 90.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: const DecorationImage(
-                  image: NetworkImage(
-                    'https://cdn.asp.events/CLIENT_AV_Media_E63B4142_BA46_1D2B_9F2E146485599B42/sites/Podcast-Show-2022/media/TPS%203%20(1).jpeg',
-                  ),
-                  fit: BoxFit.cover),
-              // color: Colors.white
-            ),
-          ),
-          SizedBox(
-            width: 5.w,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              Text(
-                "Stuff You Should Know",
-                style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white),
+              Container(
+                height: 90.h,
+                width: 90.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: const DecorationImage(
+                      image: NetworkImage(
+                        'https://cdn.asp.events/CLIENT_AV_Media_E63B4142_BA46_1D2B_9F2E146485599B42/sites/Podcast-Show-2022/media/TPS%203%20(1).jpeg',
+                      ),
+                      fit: BoxFit.cover),
+                  // color: Colors.white
+                ),
               ),
               SizedBox(
-                height: 3.h,
+                width: 5.w,
               ),
-              Text(
-                'Podcast By: BrunchTalk',
-                style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Text(
-                'May 18 | 1hr 30min',
-                style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Stuff You Should Know",
+                    style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: 3.h,
+                  ),
+                  Text(
+                    'Podcast By: BrunchTalk',
+                    style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text(
+                    'May 18 | 1hr 30min',
+                    style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
+                  ),
+                ],
               ),
             ],
-          ),
-          SizedBox(
-            width: 5.w,
           ),
           SizedBox(
             height: 45.h,
             width: 45.w,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                  primary: Colors.green,
-                  padding: const EdgeInsets.all(0.00)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                primary: Colors.green,
+                padding: const EdgeInsets.all(0.00),
+              ),
               onPressed: (() {}),
               child: Icon(
                 Icons.play_arrow_rounded,
