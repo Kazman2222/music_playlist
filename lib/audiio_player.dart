@@ -16,6 +16,7 @@ class audio_player extends StatefulWidget {
 class _audio_playerState extends State<audio_player> {
   final audioPlayer = AudioPlayer();
   bool isPlaying = false;
+  bool isRepeat = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   List music = ['olamide.mp3', 'qdot.mp3', 'rock.mp3', 'sample.mp3'];
@@ -41,6 +42,20 @@ class _audio_playerState extends State<audio_player> {
         position = newPosition;
       });
     });
+    audioPlayer.onPlayerComplete.listen((event) async {
+      setState(() {
+        if (count > music.length) {
+          count = 0;
+          setAudio();
+        } else {
+          count = count + 1;
+          setAudio();
+        }
+      });
+
+      // isPlaying = false;
+      // await audioPlayer.resume();
+    });
   }
 
   void newDuration(int second) {
@@ -51,7 +66,6 @@ class _audio_playerState extends State<audio_player> {
   int count = 0;
 
   Future setAudio() async {
-    audioPlayer.setReleaseMode(ReleaseMode.loop);
     final player = AudioCache(prefix: 'lib/audio/');
     final url = await player.load(music[count]);
     audioPlayer.setSourceUrl(url.path);
@@ -96,9 +110,9 @@ class _audio_playerState extends State<audio_player> {
                 itemBuilder: ((context, index) {
                   return ElevatedButton(
                       onPressed: (() {
-                        count = index;
-                        setAudio();
                         setState(() {
+                          count = index;
+                          setAudio();
                           isPlaying = false;
                         });
                       }),
@@ -111,10 +125,11 @@ class _audio_playerState extends State<audio_player> {
                   onPressed: (() async {
                     setState(() {
                       count--;
-                      if (count <= music.length) {
+                      if (count == 0) {
                         count = 0;
                       }
                       setAudio();
+                      newDuration(0);
                       isPlaying = false;
                     });
                   }),
@@ -123,13 +138,15 @@ class _audio_playerState extends State<audio_player> {
                   onPressed: (() async {
                     setState(() {
                       count++;
+
                       if (count >= music.length) {
                         count = 0;
                       }
 
                       setAudio();
+                      newDuration(0);
+
                       isPlaying = false;
-                      print(count);
                     });
                   }),
                   child: Text('next')),
@@ -151,7 +168,22 @@ class _audio_playerState extends State<audio_player> {
                 icon: isPlaying == false
                     ? Icon(Icons.play_arrow)
                     : Icon(Icons.pause),
-              )
+              ),
+              ElevatedButton(
+                  onPressed: (() {
+                    if (isRepeat == false) {
+                      audioPlayer.setReleaseMode(ReleaseMode.loop);
+                      setState(() {
+                        isRepeat = true;
+                      });
+                    } else {
+                      audioPlayer.setReleaseMode(ReleaseMode.release);
+                      setState(() {
+                        isRepeat = false;
+                      });
+                    }
+                  }),
+                  child: Text('loop'))
             ],
           )
         ],

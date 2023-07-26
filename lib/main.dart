@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
               return MaterialApp(
                 scaffoldMessengerKey: messengerKey,
                 navigatorKey: navigatorKey,
-                initialRoute: routeManager.loginUp,
+                initialRoute: routeManager.profilePages,
                 onGenerateRoute: routeManager.routeSettings,
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Demo',

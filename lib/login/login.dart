@@ -295,9 +295,24 @@ class _LoginState extends State<Login> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: ((context) => const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
+        builder: ((context) =>  Center(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                decoration: BoxDecoration(
+                  color: Colors.black
+                  
+                ),
+                height: 120,
+                width: 200,
+                child: Column(
+                  children: [
+                    CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                    Text('Please wait',style: TextStyle(color: Colors.green,fontSize: 14),),
+                    SizedBox(height: 10,)
+                  ],
+                ),
               ),
             )));
     try {
