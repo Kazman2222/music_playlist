@@ -31,10 +31,10 @@ Future isplayingBottomSheet(BuildContext context) {
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (BuildContext context) {
-        String pics = networkImage2;
-        String artistname = 'Rema';
-        String Albumname = 'rave and roses';
-        String songname = 'Charm';
+        String pics = networkImage6;
+        String artistname = 'Dave feat. Central Cee';
+        String Albumname = 'single';
+        String songname = 'Sprinter';
         return SizedBox(
           height: MediaQuery.of(context).size.height * 0.75,
           child: Stack(
@@ -54,7 +54,7 @@ Future isplayingBottomSheet(BuildContext context) {
                 child: ClipRRect(
                   // make sure we apply clip it properly
                   child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
+                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     // blendMode: BlendMode.saturation,
                   ),
                 ),
