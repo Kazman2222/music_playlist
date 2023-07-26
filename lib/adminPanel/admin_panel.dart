@@ -61,7 +61,7 @@ class _MyWidgetState extends State<adminPanel> {
                       icon1: Icons.add,
                       text1: 'Add New Podcast',
                       onTap: () {
-                        null;
+                        Navigator.pushNamed(context, '/addPodcast');
                       },
                     ),
                     buildPadding(),

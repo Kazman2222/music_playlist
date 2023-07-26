@@ -1,3 +1,4 @@
+import 'package:audio_playlist/audio/current_play.dart';
 import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
 import 'package:audio_playlist/constants.dart';
 import 'package:flutter/material.dart';
@@ -117,10 +118,13 @@ class _playlistState extends State<playlist> {
                               const Color.fromARGB(255, 140, 140, 140)
                                   .withOpacity(0.9),
                           radius: 25,
-                          child: const Icon(
-                            Icons.play_arrow,
-                            color: Color.fromARGB(255, 219, 217, 217),
-                            size: 29,
+                          child: GestureDetector(
+                            onTap: () => isplayingBottomSheet(context),
+                            child: const Icon(
+                              Icons.play_arrow,
+                              color: Color.fromARGB(255, 219, 217, 217),
+                              size: 29,
+                            ),
                           ),
                         ),
                       );

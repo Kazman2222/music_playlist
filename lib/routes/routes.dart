@@ -1,3 +1,4 @@
+import 'package:audio_playlist/adminPanel/add_podcast.dart';
 import 'package:audio_playlist/artistesdetails/artiste_profile.dart';
 import 'package:audio_playlist/audiio_player.dart';
 import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
@@ -22,6 +23,7 @@ class routeManager {
   static const String onboarding1 = '/onboard1';
   static const String onboarding2 = '/onboard2';
   static const String onboarding3 = '/onboard3';
+  static const String addPodcast = '/addPodcast';
   // PremiumSub
   static Route<dynamic> routeSettings(RouteSettings settings) {
     switch (settings.name) {
@@ -41,6 +43,8 @@ class routeManager {
         return MaterialPageRoute(builder: ((context) => const Onboarding2()));
       case onboarding3:
         return MaterialPageRoute(builder: ((context) => const Onboarding3()));
+      case addPodcast:
+        return MaterialPageRoute(builder: ((context) => const AddPodcast()));
       default:
         throw const FormatException('no route found');
     }
