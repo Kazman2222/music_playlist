@@ -51,6 +51,9 @@ dependencies:
   simple_fontellico_progress_dialog: ^0.3.0
   vibration: ^1.7.5
   email_validator: ^2.0.1
+  animated_text_kit: ^4.2.2
+  page_transition: ^2.0.9
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:

@@ -17,17 +17,18 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- // await Firebase.initializeApp();
-   await Firebase.initializeApp(
-    options: const FirebaseOptions(
-        apiKey: 'AIzaSyC0ob_u3dQjlZNSj4eMATIXvtKOk6DT34k',
-        appId: "XXX",
-        messagingSenderId: "XXX",
-        projectId: "playlistfy-1639e",
-        storageBucket: "real-project-8a997.appspot.com"),
-  );
+  await Firebase.initializeApp();
+  // await Firebase.initializeApp(
+  //   options: const FirebaseOptions(
+  //       apiKey: 'AIzaSyC0ob_u3dQjlZNSj4eMATIXvtKOk6DT34k',
+  //       appId: "XXX",
+  //       messagingSenderId: "XXX",
+  //       projectId: "playlistfy-1639e",
+  //       storageBucket: "real-project-8a997.appspot.com"),
+  // );
   runApp(const MyApp());
 }
+
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
               return MaterialApp(
                 scaffoldMessengerKey: messengerKey,
                 navigatorKey: navigatorKey,
-                initialRoute: routeManager.profilePages,
+                initialRoute: routeManager.onboarding1,
                 onGenerateRoute: routeManager.routeSettings,
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Demo',

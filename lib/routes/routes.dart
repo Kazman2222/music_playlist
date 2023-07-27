@@ -1,3 +1,4 @@
+import 'package:audio_playlist/adminPanel/add_podcast.dart';
 import 'package:audio_playlist/artistesdetails/artiste_profile.dart';
 import 'package:audio_playlist/artistesdetails/profile.dart';
 import 'package:audio_playlist/audiio_player.dart';
@@ -9,10 +10,15 @@ import 'package:audio_playlist/home/radio.dart';
 import 'package:audio_playlist/login/forgetpassword.dart';
 import 'package:audio_playlist/login/login.dart';
 import 'package:audio_playlist/login/signUp.dart';
+import 'package:audio_playlist/onboarding/onboard_1.dart';
+import 'package:audio_playlist/onboarding/onboard_2.dart';
 import 'package:audio_playlist/popUps/premiumPop.dart';
 import 'package:audio_playlist/profile/profile.dart';
 import 'package:audio_playlist/profile/profile_information.dart';
+import 'package:audio_playlist/profile/register.dart';
 import 'package:flutter/material.dart';
+
+import '../onboarding/onboard_3.dart';
 
 class routeManager {
   static const String homePages = '/';
@@ -23,6 +29,12 @@ class routeManager {
   static const String authOne = '/authOne';
   static const String forgetPasswords = '/forgetPassword';
   static const String profilePages = '/profilePage';
+  static const String onboarding1 = '/onboard1';
+  static const String onboarding2 = '/onboard2';
+  static const String onboarding3 = '/onboard3';
+  static const String addPodcast = '/addPodcast';
+  static const String editProfile = '/editProfile';
+  static const String registerUser = '/register';
   // PremiumSub
   static Route<dynamic> routeSettings(RouteSettings settings) {
     switch (settings.name) {
@@ -43,6 +55,19 @@ class routeManager {
             builder: ((context) => const forgetPassword()));
       case profilePages:
         return MaterialPageRoute(builder: ((context) => const audio_player()));
+      case onboarding1:
+        return MaterialPageRoute(builder: ((context) => const Onboarding()));
+      case onboarding2:
+        return MaterialPageRoute(builder: ((context) => const Onboarding2()));
+      case onboarding3:
+        return MaterialPageRoute(builder: ((context) => const Onboarding3()));
+      case addPodcast:
+        return MaterialPageRoute(builder: ((context) => const AddPodcast()));
+      case editProfile:
+        return MaterialPageRoute(
+            builder: ((context) => const ProfileDetails()));
+      case registerUser:
+        return MaterialPageRoute(builder: ((context) => const register()));
       default:
         throw const FormatException('no route found');
     }

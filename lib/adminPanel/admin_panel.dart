@@ -1,5 +1,4 @@
 import 'package:audio_playlist/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -62,7 +61,7 @@ class _MyWidgetState extends State<adminPanel> {
                       icon1: Icons.add,
                       text1: 'Add New Podcast',
                       onTap: () {
-                        null;
+                        Navigator.pushNamed(context, '/addPodcast');
                       },
                     ),
                     buildPadding(),
@@ -85,7 +84,13 @@ class _MyWidgetState extends State<adminPanel> {
                     InkButton(
                       icon1: Icons.logout,
                       text1: 'Log-Out',
-                      onTap: ()=> FirebaseAuth.instance.signOut(),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const logout()),
+                        );
+                      },
                     ),
                     buildPadding(),
                   ],

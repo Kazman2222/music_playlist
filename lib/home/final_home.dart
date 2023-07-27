@@ -19,14 +19,12 @@ class final_home extends StatefulWidget {
   const final_home({super.key});
 
   @override
-  
   State<final_home> createState() => _final_homeState();
-  
 }
 
 class _final_homeState extends State<final_home> {
-   // final usero = FirebaseAuth.instance.currentUser!;
- 
+  final usero = FirebaseAuth.instance.currentUser!;
+
   TextEditingController searchController = TextEditingController();
 
   List<String> myList = [];
@@ -69,11 +67,8 @@ class _final_homeState extends State<final_home> {
   }
 
   @override
-   
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -86,7 +81,6 @@ class _final_homeState extends State<final_home> {
           ),
         ),
         child: Consumer<AudioManagement>(builder: ((context, value, child) {
-          
           return SafeArea(
               top: true,
               child: SingleChildScrollView(
@@ -114,9 +108,8 @@ class _final_homeState extends State<final_home> {
                               backgroundColor:
                                   const Color.fromARGB(255, 71, 224, 76),
                               radius: 20.r,
-                              child:  Text(
-                                'J',
-                                  style: TextStyle(
+                              child: Text(usero.email![0].toUpperCase(),
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
                                       color: Colors.black)),
@@ -369,20 +362,21 @@ class _final_homeState extends State<final_home> {
                             width: 10.w,
                           ),
                           ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15)),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 15),
-                                  primary: const Color(0xff0C856F)),
-                              onPressed: (() {}),
-                              child: const Text(
-                                'Culture',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              )),
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 15),
+                                primary: const Color(0xff0C856F)),
+                            onPressed: (() {}),
+                            child: const Text(
+                              'Culture',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ),
                           SizedBox(
                             width: 10.w,
                           ),
@@ -418,10 +412,10 @@ class _final_homeState extends State<final_home> {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      height: 150.h,
+                      height: 160,
                       child: SizedBox(
-                        height: 150.h,
-                        width: 300.w,
+                        height: 160,
+                        width: 300,
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -434,6 +428,7 @@ class _final_homeState extends State<final_home> {
                                     const EdgeInsets.only(left: 20, right: 10),
                                 padding:
                                     const EdgeInsets.only(left: 10, right: 10),
+                                width: 350,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                   image: const DecorationImage(
@@ -447,13 +442,18 @@ class _final_homeState extends State<final_home> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
                                     const Text(
                                       '#Trending',
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 14),
+                                          color: Colors.green,
+                                          fontSize: 14.5,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     const Text(
-                                      'Genre Revolution: Shattering Boundaries,\nUnleashing a New Era of Sound!',
+                                      'Genre Revolution: Shattering Boundaries,Unleashing a New Era of Sound!',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
@@ -483,7 +483,7 @@ class _final_homeState extends State<final_home> {
                                               fontSize: 16),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),

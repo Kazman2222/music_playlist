@@ -1,6 +1,7 @@
 import 'package:audio_playlist/constants.dart';
 import 'package:audio_playlist/constants.dart';
 import 'package:audio_playlist/login/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -87,6 +88,7 @@ class _logoutState extends State<logout> {
                               borderRadius: BorderRadius.circular(10)),
                           primary: Colors.green),
                       onPressed: (() {
+                        FirebaseAuth.instance.signOut();
                         Navigator.push(
                           context,
                           MaterialPageRoute(

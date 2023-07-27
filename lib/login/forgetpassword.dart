@@ -55,8 +55,8 @@ class _forgetPasswordState extends State<forgetPassword> {
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.grey,
-                      backgroundColor: Color.fromARGB(255, 71, 224, 76)),
+                      onPrimary: Colors.grey,
+                      primary: Color.fromARGB(255, 71, 224, 76)),
                   onPressed: (() {
                     resetPassword();
                   }),
@@ -73,7 +73,7 @@ class _forgetPasswordState extends State<forgetPassword> {
   }
 
   Future resetPassword() async {
-     final isValid = formKey.currentState!.validate();
+    final isValid = formKey.currentState!.validate();
     if (!isValid) return;
     try {
       await FirebaseAuth.instance

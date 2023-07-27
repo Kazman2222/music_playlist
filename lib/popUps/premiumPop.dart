@@ -15,7 +15,7 @@ class PremiumSub extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                'assets/pics/popup_background.png',
+                'assets/pics/popup_background.jpg',
               ),
               fit: BoxFit.cover),
         ),
@@ -46,7 +46,7 @@ class PremiumSub extends StatelessWidget {
                     ),
                     Expanded(
                       child: Image.asset(
-                        'assets/pics/gold_package-removebg-preview.png',
+                        'assets/pics/gold_package.png',
                         height: 250.h,
                         width: 500.w,
                       ),

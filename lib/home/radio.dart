@@ -4,7 +4,6 @@ import 'package:audio_playlist/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 import '../bottomnavigationbar/bottomnavigationbar.dart';
 
 class radio extends StatefulWidget {
@@ -155,6 +154,9 @@ class _RadioPageState extends State<radio> {
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
                     ),
+                    SizedBox(
+                      width: 20.h,
+                    ),
                     RadioSelector(
                       radioChanel: 'RayMax FM',
                       radioStation: '91.3',
@@ -174,6 +176,9 @@ class _RadioPageState extends State<radio> {
                       radioStation: '99.1',
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
+                    ),
+                    SizedBox(
+                      width: 20.h,
                     ),
                     RadioSelector(
                       radioChanel: 'Max FM',
@@ -195,6 +200,9 @@ class _RadioPageState extends State<radio> {
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
                     ),
+                    SizedBox(
+                      width: 20.h,
+                    ),
                     RadioSelector(
                       radioChanel: 'Naija FM',
                       radioStation: '99.3',
@@ -214,6 +222,9 @@ class _RadioPageState extends State<radio> {
                       radioStation: '97.3',
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
+                    ),
+                    SizedBox(
+                      width: 20.h,
                     ),
                     RadioSelector(
                       radioChanel: 'Radio FM',
@@ -235,6 +246,9 @@ class _RadioPageState extends State<radio> {
                       // checker: tapper,
                       // onTap: toggleContainerVisibility,
                     ),
+                    SizedBox(
+                      width: 20.h,
+                    ),
                     RadioSelector(
                       radioChanel: 'Love FM',
                       radioStation: '104.9',
@@ -248,7 +262,6 @@ class _RadioPageState extends State<radio> {
           ),
         ),
       ),
-      
     );
   }
 }
@@ -298,67 +311,72 @@ class _RadioSelectorState extends State<RadioSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: toggleContainerVisibility, // Call the provided onTap callback
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            width: 3.0,
-            style: BorderStyle.solid,
-            color: tapper ? Colors.green : Colors.white,
+    return Expanded(
+      child: GestureDetector(
+        onTap: toggleContainerVisibility, // Call the provided onTap callback
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              width: 3.0,
+              style: BorderStyle.solid,
+              color: tapper ? Colors.green : Colors.white,
+            ),
           ),
-        ),
-        height: 250,
-        width: 170,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.radioStation,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 23,
-                          color: Colors.white,
-                        ),
+          height: 250,
+          width: 170,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 100.w,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.radioStation,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 23,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            widget.radioChanel,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        widget.radioChanel,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: toggleHearts,
-                    child: Icon(
-                      hearts ? Icons.favorite : Icons.favorite_outline_sharp,
-                      color: Colors.green,
-                      size: 30,
                     ),
-                  ),
-                ],
-              ),
-              Image.asset(
-                images[colorPicker()],
-                height: 70,
-                width: double.infinity,
-              ),
-            ],
+                    GestureDetector(
+                      onTap: toggleHearts,
+                      child: Icon(
+                        hearts ? Icons.favorite : Icons.favorite_outline_sharp,
+                        color: Colors.green,
+                        size: 30,
+                      ),
+                    ),
+                  ],
+                ),
+                Image.asset(
+                  images[colorPicker()],
+                  height: 80.w,
+                  width: double.infinity,
+                ),
+              ],
+            ),
           ),
         ),
       ),

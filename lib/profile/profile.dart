@@ -1,10 +1,13 @@
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:audio_playlist/profile/profile_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../constants.dart';
 
 class ProfileDetails extends StatefulWidget {
   const ProfileDetails({super.key});
@@ -24,9 +27,8 @@ class _ProfileDetailsState extends State<ProfileDetails> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      backgroundColor: Color(0xff212121),
+      backgroundColor: kBackGroundColour,
       body: SafeArea(
           top: true,
           child: SingleChildScrollView(
@@ -36,8 +38,8 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'personal information',
+                  const Text(
+                    'Personal Information',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,
@@ -47,7 +49,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                     height: 20,
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 35, bottom: 5),
+                    padding: EdgeInsets.only(bottom: 5),
                     child: Text(
                       'First Name*',
                       style: TextStyle(
@@ -60,7 +62,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                   SizedBox(
                     child: TextField(
                       controller: firstNameController,
-                     
                       textAlign: TextAlign.start,
                       decoration: InputDecoration(
                           fillColor: Colors.grey,
@@ -77,7 +78,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                     height: 15,
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 35, bottom: 5),
+                    padding: EdgeInsets.only(bottom: 5),
                     child: Text(
                       'Last Name*',
                       style: TextStyle(
@@ -90,7 +91,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                   SizedBox(
                     child: TextField(
                       controller: lastNameController,
-                     
                       textAlign: TextAlign.start,
                       decoration: InputDecoration(
                           fillColor: Colors.grey,
@@ -107,7 +107,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                     height: 15,
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 35, bottom: 5),
+                    padding: EdgeInsets.only(bottom: 5),
                     child: Text(
                       'Stage Name*',
                       style: TextStyle(
@@ -120,7 +120,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                   SizedBox(
                     child: TextField(
                       controller: stageNameController,
-                    
                       textAlign: TextAlign.start,
                       decoration: InputDecoration(
                           fillColor: Colors.grey,
@@ -137,7 +136,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                     height: 15,
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 35, bottom: 5),
+                    padding: EdgeInsets.only(bottom: 5),
                     child: Text(
                       'Date of birth*',
                       style: TextStyle(
@@ -150,7 +149,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                   SizedBox(
                     child: TextField(
                       controller: dateofbirthController,
-                      
                       textAlign: TextAlign.start,
                       decoration: InputDecoration(
                           labelText: 'dd/mm/yyyy',
@@ -169,7 +167,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                     height: 15,
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 35, bottom: 5),
+                    padding: EdgeInsets.only(bottom: 5),
                     child: Text(
                       'Nationality*',
                       style: TextStyle(
@@ -182,7 +180,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                   SizedBox(
                     child: TextField(
                       controller: nationalityController,
-                     
                       textAlign: TextAlign.start,
                       decoration: InputDecoration(
                           fillColor: Colors.grey,
@@ -198,8 +195,8 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 35, bottom: 5),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 5),
                     child: Text(
                       'Gender*',
                       style: TextStyle(
@@ -212,7 +209,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                   SizedBox(
                     child: TextField(
                       controller: genderController,
-                     
                       textAlign: TextAlign.start,
                       decoration: InputDecoration(
                           fillColor: Colors.grey,
@@ -229,7 +225,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                     height: 15,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 35, bottom: 5),
+                    padding: const EdgeInsets.only(bottom: 5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
@@ -248,49 +244,55 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     height: 5 * 24,
                     child: TextField(
                       controller: aboutselfController,
                       maxLength: 150,
                       maxLines: 5,
                       keyboardType: TextInputType.multiline,
-                    
                       textAlign: TextAlign.start,
                       decoration: InputDecoration(
                           fillColor: Colors.grey,
                           filled: true,
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
+                              borderSide: const BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.circular(20)),
                           enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
+                              borderSide: const BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.circular(20))),
                     ),
                   ),
                   Center(
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green),
-                        onPressed: () {
-                          final user = Userrr(
-                              id: 'kazeemquayum67@gmail.com',
-                              firstname: firstNameController.text,
-                              lastname: lastNameController.text,
-                              nationality: nationalityController.text,
-                              gender: genderController.text,
-                              stagename: stageNameController.text,
-                              tellUsAboutYourself: aboutselfController.text,
-                              dateOfBirth: dateofbirthController.text,
-                              );
-                          createUser(user);
-                          print(firstNameController.text);
-                        },
+                      style: ElevatedButton.styleFrom(primary: Colors.green),
+                      onPressed: () {
+                        final user = Userrr(
+                          id: 'kazeemquayum67@gmail.com',
+                          firstname: firstNameController.text,
+                          lastname: lastNameController.text,
+                          nationality: nationalityController.text,
+                          gender: genderController.text,
+                          stagename: stageNameController.text,
+                          tellUsAboutYourself: aboutselfController.text,
+                          dateOfBirth: dateofbirthController.text,
+                        );
+                        createUser(user);
+                        print(firstNameController.text);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
                         child: Text(
                           'Done',
-                          style: TextStyle(color: Colors.black),
-                        )),
-                  )
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 30.sp,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -300,8 +302,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
 
   Future createUser(Userrr user) async {
     final docUser = FirebaseFirestore.instance.collection('registraton').doc();
-     //user.id = docUser.id;
-
+    //user.id = docUser.id;
 
     final json = user.toJson();
 

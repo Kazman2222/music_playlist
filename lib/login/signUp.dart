@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:audio_playlist/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -5,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
 import '../constants.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 
 import '../main.dart';
 import '../popUps/utils.dart';
+import 'login.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -59,12 +62,20 @@ class _SignupState extends State<Signup> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      const Text(
-                        'Sign Up,',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
+                      AnimatedTextKit(
+                        isRepeatingAnimation: true,
+                        totalRepeatCount: 1,
+                        animatedTexts: [
+                          TyperAnimatedText(
+                            'Sign Up,',
+                            textStyle: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30),
+                            speed: const Duration(milliseconds: 200),
+                            curve: Curves.linear,
+                          )
+                        ],
                       ),
                       const Text(
                         'Start Listening',
@@ -323,8 +334,14 @@ class _SignupState extends State<Signup> {
                         TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = (() {
-                              Navigator.of(context)
-                                  .pushNamed(routeManager.loginUp);
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.rightToLeft,
+                                  duration: const Duration(milliseconds: 300),
+                                  child: const Login(),
+                                ),
+                              );
                             }),
                           text: 'LOG IN',
                           style: const TextStyle(
@@ -363,12 +380,11 @@ class _SignupState extends State<Signup> {
         password: passwordController.text.trim(),
       );
       Utils.showSnackBar('User registered succesfully');
-       navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       print(e);
       Navigator.of(context).pushNamed(routeManager.signUp);
       Utils.showSnackBar(e.message);
     }
-   
   }
 }

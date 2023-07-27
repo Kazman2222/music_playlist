@@ -1,9 +1,11 @@
 import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
 import 'package:audio_playlist/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../artistesdetails/profile.dart';
+import '../audio/current_play.dart';
 
 class playlist extends StatefulWidget {
   const playlist({super.key});
@@ -13,6 +15,7 @@ class playlist extends StatefulWidget {
 }
 
 class _playlistState extends State<playlist> {
+  final usero = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +49,7 @@ class _playlistState extends State<playlist> {
                             backgroundColor:
                                 const Color.fromARGB(255, 71, 224, 76),
                             radius: 20.r,
-                            child: const Text('J',
+                            child: Text('${usero.email![0].toUpperCase()}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
@@ -117,10 +120,13 @@ class _playlistState extends State<playlist> {
                               const Color.fromARGB(255, 140, 140, 140)
                                   .withOpacity(0.9),
                           radius: 25,
-                          child: const Icon(
-                            Icons.play_arrow,
-                            color: Color.fromARGB(255, 219, 217, 217),
-                            size: 29,
+                          child: GestureDetector(
+                            onTap: () => isplayingBottomSheet(context),
+                            child: const Icon(
+                              Icons.play_arrow,
+                              color: Color.fromARGB(255, 219, 217, 217),
+                              size: 29,
+                            ),
                           ),
                         ),
                       );

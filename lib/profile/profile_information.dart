@@ -56,8 +56,10 @@ class _profile_informationState extends State<profile_information> {
                           const SizedBox(
                             height: 15,
                           ),
-                           Text(   documentSnapshot['firstname'] + ' ' + documentSnapshot['lastname'] 
-                            ,
+                          Text(
+                            documentSnapshot['firstname'] +
+                                ' ' +
+                                documentSnapshot['lastname'],
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -70,7 +72,7 @@ class _profile_informationState extends State<profile_information> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               RichText(
-                                text:  TextSpan(
+                                text: TextSpan(
                                   text: "a.k.a",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -95,7 +97,7 @@ class _profile_informationState extends State<profile_information> {
                               ElevatedButton.icon(
                                   style: ElevatedButton.styleFrom(
                                       side: BorderSide(color: Colors.white),
-                                      backgroundColor: Colors.black,
+                                      primary: Colors.black,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(20))),
@@ -196,8 +198,8 @@ class _profile_informationState extends State<profile_information> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children:  [
-                             const Text(
+                            children: [
+                              const Text(
                                 'Nationality',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -215,8 +217,8 @@ class _profile_informationState extends State<profile_information> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children:  [
-                             Text(
+                            children: [
+                              Text(
                                 'Gender',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -255,7 +257,7 @@ class _profile_informationState extends State<profile_information> {
                 ),
               );
             } else {
-              return Center(
+              return const Center(
                 child: Text('No Information found'),
               );
             }

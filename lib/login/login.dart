@@ -1,3 +1,5 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:audio_playlist/login/signUp.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:biometric_fingerprint/biometric_fingerprint.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:audio_playlist/routes/routes.dart';
+import 'package:page_transition/page_transition.dart';
 import '../bottomnavigationbar/bottomnavigationbar.dart';
 import '../components/buttons.dart';
 import '../constants.dart';
@@ -64,12 +67,20 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      const Text(
-                        'Sign Up,',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
+                      AnimatedTextKit(
+                        isRepeatingAnimation: true,
+                        totalRepeatCount: 1,
+                        animatedTexts: [
+                          TyperAnimatedText(
+                            'Sign In,',
+                            textStyle: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30),
+                            speed: const Duration(milliseconds: 200),
+                            curve: Curves.linear,
+                          )
+                        ],
                       ),
                       const Text(
                         'Start Listening',
@@ -268,8 +279,14 @@ class _LoginState extends State<Login> {
                         TextSpan(
                             recognizer: TapGestureRecognizer()
                               ..onTap = (() {
-                                Navigator.of(context)
-                                    .pushNamed(routeManager.signUp);
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.leftToRight,
+                                    duration: const Duration(milliseconds: 300),
+                                    child: const Signup(),
+                                  ),
+                                );
                               }),
                             text: 'SIGN UP',
                             style: const TextStyle(
@@ -295,13 +312,10 @@ class _LoginState extends State<Login> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: ((context) =>  Center(
+        builder: ((context) => Center(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                decoration: BoxDecoration(
-                  color: Colors.black
-                  
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                decoration: BoxDecoration(color: Colors.black),
                 height: 120,
                 width: 200,
                 child: Column(
@@ -309,8 +323,13 @@ class _LoginState extends State<Login> {
                     CircularProgressIndicator(
                       color: Colors.white,
                     ),
-                    Text('Please wait',style: TextStyle(color: Colors.green,fontSize: 14),),
-                    SizedBox(height: 10,)
+                    Text(
+                      'Please wait',
+                      style: TextStyle(color: Colors.green, fontSize: 14),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
                   ],
                 ),
               ),

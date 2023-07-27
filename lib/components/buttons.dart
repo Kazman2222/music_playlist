@@ -203,3 +203,15 @@ void showAlertDialog(BuildContext context) {
     },
   );
 }
+
+List<String> header = [
+  'Unleash the Rhythm Discover Your Music Journey.',
+  'Tune in to Endless Entertainment Radio, Podcasts & More.',
+  'Streaming Bliss Enjoy Your Favorite Content Anytime, Anywhere.',
+];
+
+List<String> onboardImages = [
+  "assets/pics/onboard_1.png",
+  "assets/pics/onboard_2.png",
+  "assets/pics/onboard_3.png"
+];
