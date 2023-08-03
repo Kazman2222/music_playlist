@@ -240,7 +240,7 @@ class _LoginState extends State<Login> {
                       Navigator.of(context)
                           .pushNamed(routeManager.forgetPasswords);
                     }),
-                    child: Text(
+                    child: const Text(
                       'Forgot your password?',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,

@@ -54,6 +54,13 @@ dependencies:
   animated_text_kit: ^4.2.2
   page_transition: ^2.0.9
   dotted_border: ^2.0.0+3
+  firebase_storage: ^11.0.16
+  file_picker: ^5.2.6
+  path: ^1.7.0
+  volume_controller: ^2.0.7
+#  just_audio_background: ^0.0.1-beta.10
+#  just_audio: ^0.9.34
+#  audio_service: ^0.18.10
 
 dev_dependencies:
   flutter_test:

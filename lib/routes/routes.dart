@@ -2,10 +2,12 @@ import 'package:audio_playlist/adminPanel/add_podcast.dart';
 import 'package:audio_playlist/artistesdetails/artiste_profile.dart';
 import 'package:audio_playlist/artistesdetails/profile.dart';
 import 'package:audio_playlist/audiio_player.dart';
+import 'package:audio_playlist/audio/player.dart';
 import 'package:audio_playlist/authentication/auth-one.dart';
 import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
 import 'package:audio_playlist/home/categories.dart';
 import 'package:audio_playlist/home/final_home.dart';
+import 'package:audio_playlist/home/playlist.dart';
 import 'package:audio_playlist/home/radio.dart';
 import 'package:audio_playlist/login/forgetpassword.dart';
 import 'package:audio_playlist/login/login.dart';
@@ -35,6 +37,8 @@ class routeManager {
   static const String addPodcast = '/addPodcast';
   static const String editProfile = '/editProfile';
   static const String registerUser = '/register';
+  static const String play = '/playlist';
+  static const String playing = '/currentPlay';
   // PremiumSub
   static Route<dynamic> routeSettings(RouteSettings settings) {
     switch (settings.name) {
@@ -68,6 +72,10 @@ class routeManager {
             builder: ((context) => const ProfileDetails()));
       case registerUser:
         return MaterialPageRoute(builder: ((context) => const register()));
+      case play:
+        return MaterialPageRoute(builder: ((context) => const playlist()));
+      case playing:
+        return MaterialPageRoute(builder: ((context) => const currentPlay()));
       default:
         throw const FormatException('no route found');
     }

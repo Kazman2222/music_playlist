@@ -16,7 +16,7 @@ class categories extends StatefulWidget {
 }
 
 class _categoriesState extends State<categories> {
-   final usero = FirebaseAuth.instance.currentUser!;
+  // final usero = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +50,13 @@ class _categoriesState extends State<categories> {
                             backgroundColor:
                                 const Color.fromARGB(255, 71, 224, 76),
                             radius: 20.r,
-                            child:  Text(
-                              '${usero.email![0].toUpperCase()}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Colors.black)),
+                            child: Text(
+                              'J',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Colors.black),
+                            ),
                           ),
                         ),
                         const SizedBox(

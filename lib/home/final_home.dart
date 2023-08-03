@@ -23,8 +23,6 @@ class final_home extends StatefulWidget {
 }
 
 class _final_homeState extends State<final_home> {
-  final usero = FirebaseAuth.instance.currentUser!;
-
   TextEditingController searchController = TextEditingController();
 
   List<String> myList = [];
@@ -108,7 +106,7 @@ class _final_homeState extends State<final_home> {
                               backgroundColor:
                                   const Color.fromARGB(255, 71, 224, 76),
                               radius: 20.r,
-                              child: Text(usero.email![0].toUpperCase(),
+                              child: Text('J',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,

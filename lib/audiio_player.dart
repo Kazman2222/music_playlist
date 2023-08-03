@@ -87,14 +87,15 @@ class _audio_playerState extends State<audio_player> {
       body: Column(
         children: [
           Slider(
-              min: 0,
-              max: duration.inSeconds.toDouble(),
-              value: position.inSeconds.toDouble(),
-              onChanged: ((value) {
-                setState(() {
-                  newDuration(value.toInt());
-                });
-              })),
+            min: 0,
+            max: duration.inSeconds.toDouble(),
+            value: position.inSeconds.toDouble(),
+            onChanged: ((value) {
+              setState(() {
+                newDuration(value.toInt());
+              });
+            }),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
