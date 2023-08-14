@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "157992583118",
-    "project_id": "playlistfy-1639e",
-    "storage_bucket": "playlistfy-1639e.appspot.com"
+    "project_number": "576263356299",
+    "project_id": "ugradio-a3901",
+    "storage_bucket": "ugradio-a3901.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:157992583118:android:60826d6a6f97989185359f",
+        "mobilesdk_app_id": "1:576263356299:android:9a4426aa018cc7f50df98e",
         "android_client_info": {
-          "package_name": "com.example.audio_playlist"
+          "package_name": "com.ugradio.Ugradio"
         }
       },
       "oauth_client": [
         {
-          "client_id": "157992583118-bmbakuqjp4c9se8g1n9mc51jtm3666eq.apps.googleusercontent.com",
+          "client_id": "576263356299-irsj6vhb09k0tngb93fipi3i3rnmr6fn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC0ob_u3dQjlZNSj4eMATIXvtKOk6DT34k"
+          "current_key": "AIzaSyADodx2CW9JQpgSjqsZDDGWUdSdrA28Hbo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "157992583118-bmbakuqjp4c9se8g1n9mc51jtm3666eq.apps.googleusercontent.com",
+              "client_id": "576263356299-irsj6vhb09k0tngb93fipi3i3rnmr6fn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

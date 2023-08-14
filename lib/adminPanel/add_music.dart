@@ -18,14 +18,15 @@ import '../popUps/utils.dart';
 
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-class AddPodcast extends StatefulWidget {
-  const AddPodcast({Key? key}) : super(key: key);
+class AddMusic extends StatefulWidget {
+  const AddMusic({Key? key}) : super(key: key);
 
   @override
-  State<AddPodcast> createState() => _AddPodcastState();
+  State<AddMusic> createState() => _AddMusicState();
 }
 
-class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
+class _AddMusicState extends State<AddMusic> with TickerProviderStateMixin {
+  // double size = 100.5;
   int time = 15;
   String timing = 'seconds';
   // int percent = 0;
@@ -36,22 +37,77 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
   UploadTask? task;
   File? file;
 
-  final PodTitles = TextEditingController();
-  final Host = TextEditingController();
-  final Description = TextEditingController();
-  final EpisodeTitle = TextEditingController();
-  final EpisodeDescription = TextEditingController();
-  String Genre = 'Sports';
+  // UploadTask? pictask;
+  // File? picfile;
+
+  // late AnimationController controls;
+  //
+  // void hitInstance() {
+  //   // late AnimationController controls;
+  //   // TODO: implement initState
+  //   // super.initState();
+  //   setState(() {
+  //     tap = true;
+  //   });
+  //
+  //   controls = AnimationController(
+  //     vsync: this,
+  //     duration: const Duration(seconds: 20),
+  //     upperBound: 1,
+  //     // animation doesn't need a Bound!
+  //   );
+  //
+  //   controls.forward();
+  //
+  //   controls.addListener(() {
+  //     setState(() {});
+  //     print(controls.value);
+  //   });
+  // }
+  //
+  // void cancelInstance() {
+  //   // late AnimationController controls;
+  //   // TODO: implement initState
+  //   // super.initState();
+  //   setState(() {
+  //     tap = false;
+  //   });
+  //   print('I WAS PRESSED');
+  //
+  //   // void dispose() {
+  //   //   controls.dispose();
+  //   //   super.dispose();
+  //   // }
+  //   //
+  //   // dispose();
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   controls.dispose();
+  //   super.dispose();
+  // }
+
+  final Titles = TextEditingController();
+  final Artiste = TextEditingController();
+  final Album = TextEditingController();
+  String Genre = 'POP';
   DateTime Release_Date = DateTime(2023, 8, 03);
+  // final aboutselfController = TextEditingController();
+  // final nationalityController = TextEditingController();
+
+  // bool _validateTitle = false;
+  // bool _validateArtiste = false;
+  // bool _validateAlbum = false;
 
   Row andriodDropdown() {
     List<DropdownMenuItem<String>> dropdownItems = [];
-    for (String podcast in podcasts) {
-      String pods = podcast;
+    for (String song in genre) {
+      String songs = song;
       var newItem = DropdownMenuItem(
-        value: pods,
+        value: songs,
         child: Text(
-          pods,
+          songs,
           style:
               const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
         ),
@@ -82,8 +138,8 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
 
   CupertinoPicker iOSPicker() {
     List<Widget> cupertinoDropdown = [];
-    for (String podcast in podcasts) {
-      Widget genreList = Text(podcast);
+    for (String song in genre) {
+      Widget genreList = Text(song);
       cupertinoDropdown.add(genreList);
     }
     return CupertinoPicker(
@@ -93,7 +149,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
         itemExtent: 32.0,
         onSelectedItemChanged: (selectedIndex) {
           setState(() {
-            Genre = podcasts[selectedIndex].toString();
+            Genre = genre[selectedIndex].toString();
           });
         },
         children: cupertinoDropdown);
@@ -109,22 +165,25 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    PodTitles.dispose();
-    Host.dispose();
-    Description.dispose();
-    EpisodeTitle.dispose();
-    EpisodeDescription.dispose();
+    Titles.dispose();
+    Artiste.dispose();
+    Album.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // double value = tap ? controls.value : 0.0;
+    // double per = value * 100;
+    // int percentage = per.toInt();
+
     final fileName = file != null ? basename(file!.path) : 'No File Selelected';
+    final fillingName = file != null ? basename(file!.path) : null;
 
     return Scaffold(
       backgroundColor: kBackGroundColour,
       appBar: buildAppBars(
-        text: 'Add Podcast',
+        text: 'Add Music',
         onTap: () => Navigator.pop(context),
       ),
       body: SingleChildScrollView(
@@ -135,7 +194,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Add Podcast',
+                'Add Music',
                 // textAlign: TextAlign.start,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -255,21 +314,61 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
                     ),
                     SizedBox(
                       child: TextFormField(
-                        controller: PodTitles,
+                        controller: Titles,
                         validator: ((value) =>
-                            value!.isEmpty ? 'Enter Podcast Title' : null),
+                            value!.isEmpty ? 'Enter Song Name' : null),
                         textAlign: TextAlign.start,
                         decoration: kTextFieldDecoration.copyWith(
                           filled: true,
                           fillColor: Colors.grey,
-                          hintText: 'Podcast Name',
+                          hintText: 'Song Name',
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child: Text(
-                        'Host',
+                        'Artist',
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 99, 241, 104),
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    // SizedBox(
+                    //   height: 90,
+                    //   child: TextField(
+                    //     controller: Artiste,
+                    //     textAlign: TextAlign.start,
+                    //     maxLines: null,
+                    //     expands: true,
+                    //     // keyboardType: TextInputType.multiline,
+                    //     decoration: kTextFieldDecoration.copyWith(
+                    //       filled: true,
+                    //       fillColor: Colors.grey,
+                    //       hintText: 'Stage Name...(A.K.A)',
+                    //     ),
+                    //   ),
+                    // ),
+                    SizedBox(
+                      child: TextFormField(
+                        controller: Artiste,
+                        validator: ((value) => value!.isEmpty
+                            ? 'The Artist Name must be provided'
+                            : null),
+                        textAlign: TextAlign.start,
+                        decoration: kTextFieldDecoration.copyWith(
+                          filled: true,
+                          fillColor: Colors.grey,
+                          hintText: 'Stage Name...(A.K.A)',
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: Text(
+                        'Album',
                         style: TextStyle(
                           color: const Color.fromARGB(255, 99, 241, 104),
                           fontSize: 18.sp,
@@ -279,95 +378,14 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
                     ),
                     SizedBox(
                       child: TextFormField(
-                        controller: Host,
-                        validator: ((value) => value!.isEmpty
-                            ? 'The Host Name must be provided'
-                            : null),
+                        controller: Album,
+                        validator: ((value) =>
+                            value!.isEmpty ? 'Song Album for Song' : null),
                         textAlign: TextAlign.start,
                         decoration: kTextFieldDecoration.copyWith(
                           filled: true,
                           fillColor: Colors.grey,
-                          hintText: 'Host Name...',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: Text(
-                        'Description',
-                        style: TextStyle(
-                          color: const Color.fromARGB(255, 99, 241, 104),
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 90,
-                      child: TextFormField(
-                        controller: Description,
-                        textAlign: TextAlign.start,
-                        maxLines: null,
-                        expands: true,
-                        validator: ((value) => value!.isEmpty
-                            ? 'The Podcast Description must be provided'
-                            : null),
-                        // keyboardType: TextInputType.multiline,
-                        decoration: kTextFieldDecoration.copyWith(
-                          filled: true,
-                          fillColor: Colors.grey,
-                          hintText: 'Podcast Description',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: Text(
-                        'Episode Title',
-                        style: TextStyle(
-                          color: const Color.fromARGB(255, 99, 241, 104),
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      child: TextFormField(
-                        controller: EpisodeTitle,
-                        validator: ((value) => value!.isEmpty
-                            ? 'Episode Title must be provided...'
-                            : null),
-                        textAlign: TextAlign.start,
-                        decoration: kTextFieldDecoration.copyWith(
-                          filled: true,
-                          fillColor: Colors.grey,
-                          hintText: 'Episode Title...',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: Text(
-                        'Episode Description',
-                        style: TextStyle(
-                          color: const Color.fromARGB(255, 99, 241, 104),
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 90,
-                      child: TextField(
-                        controller: EpisodeDescription,
-                        textAlign: TextAlign.start,
-                        maxLines: null,
-                        expands: true,
-                        // keyboardType: TextInputType.multiline,
-                        decoration: kTextFieldDecoration.copyWith(
-                          filled: true,
-                          fillColor: Colors.grey,
-                          hintText: 'Podcast Episode Description....',
+                          hintText: 'If Single specify "Single".',
                         ),
                       ),
                     ),
@@ -377,7 +395,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
               Padding(
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Text(
-                  'About',
+                  'Genre',
                   style: TextStyle(
                     color: const Color.fromARGB(255, 99, 241, 104),
                     fontSize: 18.sp,
@@ -557,7 +575,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
                 height: 20,
               ),
               FutureBuilder(
-                  future: FirebaseApi().ListFiles('podcasts'),
+                  future: FirebaseApi().ListFiles('songs'),
                   builder: (BuildContext context,
                       AsyncSnapshot<firebase_storage.ListResult> snapshot) {
                     if (snapshot.connectionState == ConnectionState.done &&
@@ -612,6 +630,21 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
     setState(() => file = File(path!));
   }
 
+  // Future selectPicfile() async {
+  //   final results = await FilePicker.platform.pickFiles(allowMultiple: false);
+  //
+  //   if (results == null) {
+  //     Utils.showErrorSnackBar('No File Selected');
+  //   } else {
+  //     Utils.showSnackBar('File Selected');
+  //   }
+  //
+  //   final path = results?.files.single.path!;
+  //   // print(path);
+  //
+  //   setState(() => picfile = File(path!));
+  // }
+
   Future uploadFile() async {
     if (file == null) {
       Utils.showErrorSnackBar('Can\'t Upload Nothing!');
@@ -621,19 +654,14 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
     if (!isValid) return;
 
     final fileName = basename(file!.path);
-    final destination = 'podcasts/$fileName';
+    final destination = 'songs/$fileName';
 
-    String Podtitle = PodTitles.text;
-    String Hosts = Host.text;
-    String Describe = Description.text;
-    String Episodetitle = EpisodeTitle.text;
-    String EpisodeDescribe = EpisodeDescription.text;
+    String type = 'MUSIC';
 
-    String type = 'PODCAST';
+    // String
 
-    task = FirebaseApi.uploadFile(destination, file!, type, Podtitle, Hosts,
-        Describe, Episodetitle, EpisodeDescribe, Genre, Release_Date);
-
+    task = FirebaseApi.uploadFile(destination, file!, type, Titles.text,
+        Artiste.text, Album.text, null, null, Genre, Release_Date);
     setState(() {});
 
     if (task == null) {
@@ -645,11 +673,9 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
 
     print('Download-Link: $urlDownload');
 
-    PodTitles.clear();
-    Host.clear();
-    Description.clear();
-    EpisodeTitle.clear();
-    EpisodeDescription.clear();
+    Titles.clear();
+    Artiste.clear();
+    Album.clear();
   }
 
   // Future uploadPicFile() async {
@@ -811,7 +837,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        PodTitles.text,
+                                        Titles.text,
                                         style: GoogleFonts.lato(
                                             fontSize: 17.sp,
                                             fontWeight: FontWeight.w800,
@@ -822,7 +848,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
                                         height: 5,
                                       ),
                                       Text(
-                                        Host.text,
+                                        Artiste.text,
                                         style: GoogleFonts.lato(
                                             fontSize: 12.sp,
                                             fontWeight: FontWeight.w800,

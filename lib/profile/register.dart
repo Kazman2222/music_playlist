@@ -17,7 +17,7 @@ class _registerState extends State<register> {
         body: StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('registraton')
-          .where('id', isEqualTo: 'kazeemquayum67@gmail.com')
+          .where('id', isEqualTo: 'iyioluwaolaboye2003@gmail.com')
           .snapshots(),
       builder: ((context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
         if (streamSnapshot.hasData) {

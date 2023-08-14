@@ -1,4 +1,4 @@
-package com.example.audio_playlist
+package com.ugradio.Ugradio
 
 import io.flutter.embedding.android.FlutterActivity
 

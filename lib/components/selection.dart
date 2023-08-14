@@ -16,17 +16,26 @@ const List<String> genre = [
 ];
 
 const List<String> podcasts = [
-  'Documentary',
-  'Tech',
-  'Sports',
-  'Coaching',
+  'Interviews',
+  'Crime',
+  'Comedy',
+  'News',
+  'History',
+  'Self-Improvement',
+  'Pop Culture',
+  'Health',
   'Travel',
-  'Pets',
-  'Paranormal',
-  'Education',
+  'Business',
+  'Technology',
+  'Parenting',
+  'Literature',
+  'Language',
+  'Sports',
   'Music',
-  'Improvisation',
-  'Crime'
+  'Environment',
+  'Cooking',
+  'Religion',
+  'Art'
 ];
 
 // Row andriodDropdown() {

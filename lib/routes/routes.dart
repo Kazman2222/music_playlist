@@ -1,3 +1,4 @@
+import 'package:audio_playlist/adminPanel/add_music.dart';
 import 'package:audio_playlist/adminPanel/add_podcast.dart';
 import 'package:audio_playlist/artistesdetails/artiste_profile.dart';
 import 'package:audio_playlist/artistesdetails/profile.dart';
@@ -34,8 +35,10 @@ class routeManager {
   static const String onboarding1 = '/onboard1';
   static const String onboarding2 = '/onboard2';
   static const String onboarding3 = '/onboard3';
+  static const String addMusic = '/addMusic';
   static const String addPodcast = '/addPodcast';
   static const String editProfile = '/editProfile';
+  static const String profileDetail = '/editProfileDetail';
   static const String registerUser = '/register';
   static const String play = '/playlist';
   static const String playing = '/currentPlay';
@@ -65,6 +68,8 @@ class routeManager {
         return MaterialPageRoute(builder: ((context) => const Onboarding2()));
       case onboarding3:
         return MaterialPageRoute(builder: ((context) => const Onboarding3()));
+      case addMusic:
+        return MaterialPageRoute(builder: ((context) => const AddMusic()));
       case addPodcast:
         return MaterialPageRoute(builder: ((context) => const AddPodcast()));
       case editProfile:
@@ -72,6 +77,9 @@ class routeManager {
             builder: ((context) => const ProfileDetails()));
       case registerUser:
         return MaterialPageRoute(builder: ((context) => const register()));
+      case profileDetail:
+        return MaterialPageRoute(
+            builder: ((context) => const ProfileDetails()));
       case play:
         return MaterialPageRoute(builder: ((context) => const playlist()));
       case playing:

@@ -45,7 +45,7 @@ class _MyWidgetState extends State<adminPanel> {
                       icon1: Icons.upload,
                       text1: 'Upload Music',
                       onTap: () {
-                        null;
+                        Navigator.pushNamed(context, '/addMusic');
                       },
                     ),
                     buildPadding(),

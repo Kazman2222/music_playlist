@@ -190,7 +190,7 @@ class _LoginState extends State<Login> {
                             });
                           },
                           child: Icon(
-                            seer ? Icons.visibility : Icons.visibility_off,
+                            seer ? Icons.visibility_off : Icons.visibility,
                             size: 25,
                             color: Colors.white,
                           ),
