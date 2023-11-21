@@ -2,12 +2,16 @@
 
 import 'package:audio_playlist/profile/profile_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:audio_playlist/routes/routes.dart';
 import '../constants.dart';
+import '../popUps/utils.dart';
 
 class ProfileDetails extends StatefulWidget {
   const ProfileDetails({super.key});
@@ -27,6 +31,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
 
   @override
   Widget build(BuildContext context) {
+    dynamic id = FirebaseAuth.instance.currentUser?.email;
     return Scaffold(
       backgroundColor: kBackGroundColour,
       body: SafeArea(
@@ -268,7 +273,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                       style: ElevatedButton.styleFrom(primary: Colors.green),
                       onPressed: () {
                         final user = Userrr(
-                          id: 'kazeemquayum67@gmail.com',
+                          id: id.toString(),
                           firstname: firstNameController.text,
                           lastname: lastNameController.text,
                           nationality: nationalityController.text,
@@ -304,8 +309,41 @@ class _ProfileDetailsState extends State<ProfileDetails> {
     final docUser = FirebaseFirestore.instance.collection('registraton').doc();
     //user.id = docUser.id;
 
-    final json = user.toJson();
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: ((context) => Center(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                decoration: BoxDecoration(color: Colors.black),
+                height: 120,
+                width: 200,
+                child: Column(
+                  children: [
+                    CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                    Text(
+                      'Please wait',
+                      style: TextStyle(color: Colors.green, fontSize: 14),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
+              ),
+            )));
 
-    await docUser.set(json);
+    try {
+      final json = user.toJson();
+
+      await docUser.set(json);
+      Navigator.of(context).pushNamed(routeManager.profilePages);
+    } catch (e) {
+      Utils.showErrorSnackBar('Error Creating Information');
+      // Navigator.of(context).pushNamed(routeManager.profilePages);
+      print(e);
+    }
   }
 }

@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:audio_playlist/constants.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../components/buttons.dart';
 import '../constants.dart';
 
 class Podcast extends StatefulWidget {
-  const Podcast({Key? key}) : super(key: key);
+  final String title;
+  final String host;
+  final String description;
+  final String Eptitle;
+  final String EpDescription;
+  final String release;
+  final String? audio;
+  final String? coverphoto;
+
+  const Podcast({
+    Key? key,
+    required this.title,
+    required this.host,
+    required this.description,
+    required this.Eptitle,
+    required this.EpDescription,
+    required this.release,
+    this.audio,
+    this.coverphoto,
+  }) : super(key: key);
 
   @override
   State<Podcast> createState() => _PodcastState();
 }
 
 class _PodcastState extends State<Podcast> {
-  String description =
-      "Join child psychologist and mother of five Samantha Lee each Thursday morning as she interviews regular moms with their child behavioral issues.";
+  // String description =
+  //     "Join child psychologist and mother of five Samantha Lee each Thursday morning as she interviews regular moms with their child behavioral issues.";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,10 +54,11 @@ class _PodcastState extends State<Podcast> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  image: const DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.asp.events/CLIENT_AV_Media_E63B4142_BA46_1D2B_9F2E146485599B42/sites/Podcast-Show-2022/media/TPS%203%20(1).jpeg',
-                      ),
+                  image: DecorationImage(
+                      // 'https://cdn.asp.events/CLIENT_AV_Media_E63B4142_BA46_1D2B_9F2E146485599B42/sites/Podcast-Show-2022/media/TPS%203%20(1).jpeg'
+                      image: NetworkImage(widget.coverphoto == null
+                          ? 'https://media.istockphoto.com/id/1420789680/vector/girl-in-headphones-speaks-into-the-microphone-recording-podcast-in-studio-radio-broadcasting.jpg?s=612x612&w=0&k=20&c=DyUAJFWEBaaTmkhDHJkq4maVoqim1H76ZBQC3zHmN14='
+                          : widget.coverphoto.toString()),
                       fit: BoxFit.cover),
                 ),
               ),
@@ -47,7 +70,7 @@ class _PodcastState extends State<Podcast> {
                       height: 10.h,
                     ),
                     Text(
-                      'Lazers Not Tazers',
+                      widget.host,
                       style: TextStyle(
                           fontSize: 35.sp,
                           fontWeight: FontWeight.bold,
@@ -57,7 +80,7 @@ class _PodcastState extends State<Podcast> {
                       height: 5.h,
                     ),
                     Text(
-                      'Podcast By: BrunchTalk',
+                      'Podcast By: ${widget.title}',
                       style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -81,7 +104,7 @@ class _PodcastState extends State<Podcast> {
                           Column(
                             children: [
                               Text(
-                                "240",
+                                "1",
                                 style: TextStyle(
                                     fontSize: 27.sp,
                                     fontWeight: FontWeight.w700,
@@ -111,7 +134,7 @@ class _PodcastState extends State<Podcast> {
                           Column(
                             children: [
                               Text(
-                                "2500",
+                                "0",
                                 style: TextStyle(
                                     fontSize: 27.sp,
                                     fontWeight: FontWeight.w700,
@@ -141,7 +164,7 @@ class _PodcastState extends State<Podcast> {
                           Column(
                             children: [
                               Text(
-                                "800.5k",
+                                "0",
                                 style: TextStyle(
                                     fontSize: 27.sp,
                                     fontWeight: FontWeight.w700,
@@ -182,7 +205,7 @@ class _PodcastState extends State<Podcast> {
                       height: 3.h,
                     ),
                     Text(
-                      description,
+                      widget.description,
                       style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -212,7 +235,7 @@ class _PodcastState extends State<Podcast> {
                         ),
                         SizedBox(
                           height: 65.h,
-                          width: 165,
+                          width: 180.w,
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -274,12 +297,33 @@ class _PodcastState extends State<Podcast> {
                     ),
                     Column(
                       children: [
-                        podcastInfo(),
-                        podcastInfo(),
-                        podcastInfo(),
-                        podcastInfo(),
-                        podcastInfo(),
-                        podcastInfo()
+                        podcastInfo(widget.coverphoto.toString(),
+                            widget.Eptitle, widget.EpDescription, widget.audio),
+                        // podcastInfo(
+                        //     widget.coverphoto.toString(),
+                        //     widget.Eptitle,
+                        //     widget.EpDescription,
+                        //     handlePlayer()),
+                        // podcastInfo(
+                        //     widget.coverphoto.toString(),
+                        //     widget.Eptitle,
+                        //     widget.EpDescription,
+                        //     handlePlayer()),
+                        // podcastInfo(
+                        //     widget.coverphoto.toString(),
+                        //     widget.Eptitle,
+                        //     widget.EpDescription,
+                        //     handlePlayer()),
+                        // podcastInfo(
+                        //     widget.coverphoto.toString(),
+                        //     widget.Eptitle,
+                        //     widget.EpDescription,
+                        //     handlePlayer()),
+                        // podcastInfo(
+                        //     widget.coverphoto.toString(),
+                        //     widget.Eptitle,
+                        //     widget.EpDescription,
+                        //     handlePlayer())
                       ],
                     )
                   ],
@@ -293,7 +337,8 @@ class _PodcastState extends State<Podcast> {
   }
 }
 
-Widget podcastInfo() {
+Widget podcastInfo(
+    String? coverPhoto, String? Eptitle, String? EpDescription, String? audio) {
   return Column(
     children: [
       builderPadding(),
@@ -303,76 +348,66 @@ Widget podcastInfo() {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Container(
-                height: 90.h,
-                width: 90.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.asp.events/CLIENT_AV_Media_E63B4142_BA46_1D2B_9F2E146485599B42/sites/Podcast-Show-2022/media/TPS%203%20(1).jpeg',
-                      ),
-                      fit: BoxFit.cover),
-                  // color: Colors.white
+          Container(
+            height: 90.h,
+            width: 90.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                  image: NetworkImage(
+                    coverPhoto == null
+                        ? 'https://media.istockphoto.com/id/1420789680/vector/girl-in-headphones-speaks-into-the-microphone-recording-podcast-in-studio-radio-broadcasting.jpg?s=612x612&w=0&k=20&c=DyUAJFWEBaaTmkhDHJkq4maVoqim1H76ZBQC3zHmN14='
+                        : coverPhoto.toString(),
+                  ),
+                  fit: BoxFit.cover),
+              // color: Colors.white
+            ),
+          ),
+          SizedBox(
+            width: 5.w,
+          ),
+          Container(
+            width: 200.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  EpDescription!,
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white),
                 ),
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Stuff You Should Know",
-                    style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  Text(
-                    'Podcast By: BrunchTalk',
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Text(
-                    'May 18 | 1hr 30min',
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
-                  ),
-                ],
-              ),
-            ],
+                SizedBox(
+                  height: 3.h,
+                ),
+                Text(
+                  'Episode: ${Eptitle!}',
+                  // softWrap: true,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Text(
+                  'May 18 | 1hr 30min',
+                  style: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
+                ),
+              ],
+            ),
           ),
           SizedBox(
             height: 45.h,
             width: 45.w,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                primary: Colors.green,
-                padding: const EdgeInsets.all(0.00),
-              ),
-              onPressed: (() {}),
-              child: Icon(
-                Icons.play_arrow_rounded,
-                color: Colors.black,
-                size: 40.sp,
-              ),
-            ),
+            child: play(audio: audio),
           ),
         ],
       ),
@@ -381,4 +416,108 @@ Widget podcastInfo() {
       ),
     ],
   );
+}
+
+class play extends StatefulWidget {
+  final String? audio;
+  const play({
+    Key? key,
+    this.audio,
+  }) : super(key: key);
+
+  @override
+  State<play> createState() => _playState();
+}
+
+class _playState extends State<play> {
+  final audioPlayer = AudioPlayer();
+  bool isPlaying = false;
+
+  late String? theaudio = widget.audio;
+
+  // late List music = [theaudio];
+
+  @override
+  void initState() {
+    super.initState();
+    // setAudio();
+    // audioPlayer.onPlayerStateChanged.listen((event) {
+    //   setState(() {
+    //     isPlaying = event == PlayerState.playing;
+    //   });
+    // });
+
+    audioPlayer.onPlayerComplete.listen((event) async {
+      setState(() {
+        isPlaying = false;
+      });
+
+      // isPlaying = false;
+      // await audioPlayer.resume();
+    });
+    //
+    // VolumeController().listener((volume) {
+    //   setState(() => _volumeListenerValue = volume);
+    // });
+    //
+    // VolumeController().getVolume().then((volume) => _setVolumeValue = volume);
+  }
+
+  // final String? radioUrl =
+  //     theaudio;
+
+  // int count = 0;
+
+  // Future setAudio() async {
+  //   // Set the audio URL
+  //   await audioPlayer.setSourceUrl(music[count]);
+  // }
+
+  Future<void> playing(String url) async {
+    await audioPlayer.setSourceUrl(url);
+    await audioPlayer.resume();
+  }
+
+  Future<void> stop() async {
+    await audioPlayer.pause();
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          primary: Colors.green,
+          padding: const EdgeInsets.all(0.00),
+        ),
+        onPressed: (() async {
+          setState(() {
+            isPlaying = !isPlaying;
+          });
+          if (isPlaying) {
+            await playing(theaudio!);
+          } else {
+            stop();
+          }
+        }),
+        child: isPlaying
+            ? Icon(
+                Icons.pause,
+                color: Colors.black,
+                size: 40.sp,
+              )
+            : Icon(
+                Icons.play_arrow_rounded,
+                color: Colors.black,
+                size: 40.sp,
+              ));
+  }
 }

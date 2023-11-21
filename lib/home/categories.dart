@@ -1,9 +1,11 @@
 import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
+import 'package:audio_playlist/state_management/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../artistesdetails/profile.dart';
 import '../constants.dart';
@@ -16,7 +18,29 @@ class categories extends StatefulWidget {
 }
 
 class _categoriesState extends State<categories> {
-  // final usero = FirebaseAuth.instance.currentUser!;
+  final usero = FirebaseAuth.instance.currentUser!;
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   var audioProvider = Provider.of<AudioManagement>(context);
+  //
+  //   // Fetch audio files when the widget is built
+  //   audioProvider.fetchAudioFiles('songs');
+  //
+  //   super.initState();
+  // }
+
+  // void runNow() {
+  //   // var audioProvider = Provider.of<AudioManagement>(context);
+  //   final myModel02 = context.watch<AudioManagement>();
+  //
+  //   // Fetch audio files when the widget is built
+  //   myModel02.fetchAudioFiles('songs');
+  //
+  //   print('reannnn');
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,13 +74,11 @@ class _categoriesState extends State<categories> {
                             backgroundColor:
                                 const Color.fromARGB(255, 71, 224, 76),
                             radius: 20.r,
-                            child: Text(
-                              'J',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.black),
-                            ),
+                            child: Text('${usero.email![0].toUpperCase()}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.black)),
                           ),
                         ),
                         const SizedBox(
@@ -72,9 +94,18 @@ class _categoriesState extends State<categories> {
                         )
                       ],
                     ),
-                    const Icon(
-                      Icons.filter_list,
-                      color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        // final myModel01 = context.read<AudioManagement>();
+                        //
+                        // List musicList = myModel01.audioList;
+                        //
+                        // print(musicList);
+                      },
+                      child: const Icon(
+                        Icons.filter_list,
+                        color: Colors.white,
+                      ),
                     )
                   ],
                 ),
@@ -169,7 +200,7 @@ class _categoriesState extends State<categories> {
                           borderRadius: BorderRadius.circular(15)),
                       padding: EdgeInsets.all(12.0),
                       alignment: Alignment.bottomRight,
-                      child: Text('Comedy',
+                      child: Text('XBL',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
@@ -185,7 +216,7 @@ class _categoriesState extends State<categories> {
                           borderRadius: BorderRadius.circular(15)),
                       padding: EdgeInsets.all(12.0),
                       alignment: Alignment.bottomRight,
-                      child: Text('Relationship',
+                      child: Text('Upcoming Tracks',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
@@ -210,7 +241,7 @@ class _categoriesState extends State<categories> {
                           borderRadius: BorderRadius.circular(15)),
                       padding: EdgeInsets.all(12.0),
                       alignment: Alignment.bottomRight,
-                      child: Text('Entertainment',
+                      child: Text('Hot Tracks',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
@@ -226,7 +257,7 @@ class _categoriesState extends State<categories> {
                           borderRadius: BorderRadius.circular(15)),
                       padding: EdgeInsets.all(12.0),
                       alignment: Alignment.bottomRight,
-                      child: Text('History',
+                      child: Text('New Music',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
@@ -251,7 +282,7 @@ class _categoriesState extends State<categories> {
                           borderRadius: BorderRadius.circular(15)),
                       padding: EdgeInsets.all(12.0),
                       alignment: Alignment.bottomRight,
-                      child: Text('Origins',
+                      child: Text('Squadz',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
@@ -267,10 +298,11 @@ class _categoriesState extends State<categories> {
                           borderRadius: BorderRadius.circular(15)),
                       padding: EdgeInsets.all(12.0),
                       alignment: Alignment.bottomRight,
-                      child: Text('History',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'History',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),

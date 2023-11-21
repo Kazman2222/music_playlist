@@ -34,14 +34,6 @@ class _MyWidgetState extends State<adminPanel> {
                 child: Column(
                   children: [
                     InkButton(
-                      icon1: Icons.app_registration,
-                      text1: 'Dashboard',
-                      onTap: () {
-                        null;
-                      },
-                    ),
-                    buildPadding(),
-                    InkButton(
                       icon1: Icons.upload,
                       text1: 'Upload Music',
                       onTap: () {
@@ -51,9 +43,9 @@ class _MyWidgetState extends State<adminPanel> {
                     buildPadding(),
                     InkButton(
                       icon1: Icons.account_box,
-                      text1: 'Manage Podcast',
+                      text1: 'Manage Data',
                       onTap: () {
-                        null;
+                        Navigator.pushNamed(context, '/updateData');
                       },
                     ),
                     buildPadding(),
@@ -67,7 +59,7 @@ class _MyWidgetState extends State<adminPanel> {
                     buildPadding(),
                     InkButton(
                       icon1: Icons.graphic_eq,
-                      text1: 'Analytics',
+                      text1: 'Charts',
                       onTap: () {
                         null;
                       },
@@ -77,7 +69,7 @@ class _MyWidgetState extends State<adminPanel> {
                       icon1: Icons.settings,
                       text1: 'Settings',
                       onTap: () {
-                        null;
+                        Navigator.pushNamed(context, '/updateProfile');
                       },
                     ),
                     buildPadding(),

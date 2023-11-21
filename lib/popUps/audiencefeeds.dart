@@ -44,12 +44,9 @@ Future feedsBottomSheet(BuildContext context) {
                   height: 340.h,
                   child: Column(
                     children: [
+                      premiumDetail(iconInfo: 'Send to New Music Feed'),
                       premiumDetail(
-                          iconData: Icons.local_fire_department,
-                          iconInfo: 'Get to the front of the Audience feed'),
-                      premiumDetail(
-                          iconData: Icons.remove_red_eye,
-                          iconInfo: '1000+ fans will see your track'),
+                          iconInfo: 'Get in front of thousands of listeners'),
                       const SizedBox(
                         height: 10,
                       ),
@@ -75,28 +72,17 @@ Future feedsBottomSheet(BuildContext context) {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Classic Promo',
+                                    'Send To Audience',
                                     style: GoogleFonts.lato(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FontStyle.normal,
                                         color: Colors.white),
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    '- 3+ Judges will see your track',
-                                    style: GoogleFonts.lato(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        fontStyle: FontStyle.normal,
-                                        color: Colors.white),
-                                  ),
                                 ],
                               ),
                               Text(
-                                '\$500',
+                                '\$200',
                                 style: GoogleFonts.lato(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -132,7 +118,7 @@ Future feedsBottomSheet(BuildContext context) {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Free Promo every week',
+                                    'Upgrade to Playa Membership',
                                     style: GoogleFonts.lato(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
@@ -143,7 +129,7 @@ Future feedsBottomSheet(BuildContext context) {
                                     height: 5,
                                   ),
                                   Text(
-                                    '- Get free Send to Audience',
+                                    '- Send Each Track to New Music Feed',
                                     style: GoogleFonts.lato(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
@@ -151,7 +137,7 @@ Future feedsBottomSheet(BuildContext context) {
                                         color: Colors.white),
                                   ),
                                   Text(
-                                    '- Unlimited Judge 4 Judge',
+                                    '- Unlimited Beat Catalog',
                                     style: GoogleFonts.lato(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
@@ -159,7 +145,7 @@ Future feedsBottomSheet(BuildContext context) {
                                         color: Colors.white),
                                   ),
                                   Text(
-                                    '- ALL the Premium perks',
+                                    '- All the Basic Perks',
                                     style: GoogleFonts.lato(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
@@ -206,11 +192,7 @@ Future feedsBottomSheet(BuildContext context) {
                             primary: const Color(0xff86EE60),
                           ),
                           onPressed: (() {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => const final_home()),
-                            // );
+                            Navigator.pushNamed(context, '/updateData');
                           }),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -255,7 +237,7 @@ Future feedsBottomSheet(BuildContext context) {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Image.asset(
                             'assets/pics/profileAvatar.png',
@@ -263,26 +245,21 @@ Future feedsBottomSheet(BuildContext context) {
                             width: 40.w,
                           ),
                           Text(
-                            'Drake',
+                            'UG Radio',
                             style: GoogleFonts.lato(
-                                fontSize: 25.sp,
+                                fontSize: 23.sp,
                                 fontWeight: FontWeight.w700,
                                 fontStyle: FontStyle.normal,
                                 color: Colors.black),
                           ),
-                          Icon(
-                            Icons.local_fire_department,
-                            size: 40.sp,
-                            color: const Color(0xff86EE60),
-                          )
                         ],
                       ),
                       SizedBox(
                         height: 10.h,
                       ),
                       Expanded(
-                        child: Image.network(
-                          'https://img.buzzfeed.com/buzzfeed-static/complex/images/rrgyzeu7ucbf5styxkuw/drake-21-savage-her-loss-album-cver.jpg?downsize=920:*&output-format=auto&output-quality=auto',
+                        child: Image.asset(
+                          'assets/pics/Ugradio_player1.png',
                         ),
                       )
                     ],
@@ -309,18 +286,10 @@ Future feedsBottomSheet(BuildContext context) {
   );
 }
 
-Row premiumDetail({required IconData iconData, required String iconInfo}) {
+Row premiumDetail({required String iconInfo}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Icon(
-        iconData,
-        size: 30.sp,
-        color: const Color(0xff86EE60),
-      ),
-      SizedBox(
-        width: 5.w,
-      ),
       Text(
         iconInfo,
         style: GoogleFonts.lato(

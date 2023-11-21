@@ -34,7 +34,7 @@ class PremiumSub extends StatelessWidget {
                       height: 20.h,
                     ),
                     Text(
-                      'Special Offer!',
+                      'Special Offer Now!',
                       style: GoogleFonts.lato(
                           fontSize: 30,
                           fontWeight: FontWeight.w700,
@@ -52,7 +52,7 @@ class PremiumSub extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 30.h,
                     ),
                     Expanded(
                       child: Column(
@@ -60,44 +60,44 @@ class PremiumSub extends StatelessWidget {
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           premiumDetail(
-                              iconData: Icons.local_fire_department,
-                              iconInfo: 'Free Promo every week'),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          premiumDetail(
-                              iconData: Icons.edit,
-                              iconInfo: 'Premium Sound Effects'),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          premiumDetail(
-                              iconData: Icons.music_note,
-                              iconInfo: 'User-Own & Premium Beats'),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          premiumDetail(
-                              iconData: Icons.mic,
-                              iconInfo: '2x Recording Time'),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          premiumDetail(
-                              iconData: Icons.thumb_up,
-                              iconInfo: 'Premium Votes Worth Double'),
+                              iconData: Icons.not_interested_sharp,
+                              iconInfo: 'Ad-Free Experience'),
                           SizedBox(
                             height: 10.h,
                           ),
                           premiumDetail(
                               iconData: Icons.cloud_upload_sharp,
-                              iconInfo: 'Export to Cloud'),
+                              iconInfo: 'Upload Privileges'),
                           SizedBox(
                             height: 10.h,
                           ),
                           premiumDetail(
-                              iconData: Icons.query_stats,
-                              iconInfo: 'Advanced Statistics')
+                              iconData: Icons.stream_sharp,
+                              iconInfo: 'High-Quality Audio Streaming'),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          premiumDetail(
+                              iconData: Icons.light_mode_sharp,
+                              iconInfo: 'Exclusive VIP Access'),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          premiumDetail(
+                              iconData: Icons.flash_on_sharp,
+                              iconInfo: 'Priority Customer Support'),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          premiumDetail(
+                              iconData: Icons.diamond_sharp,
+                              iconInfo: 'Early Bird Benefits'),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          premiumDetail(
+                              iconData: Icons.headphones_sharp,
+                              iconInfo: 'Offline Audio Bliss'),
                         ],
                       ),
                     ),
@@ -120,7 +120,7 @@ class PremiumSub extends StatelessWidget {
                                     color: Colors.white),
                               ),
                               Text(
-                                'OFF',
+                                'OFF!',
                                 style: GoogleFonts.lato(
                                     fontSize: 30,
                                     fontWeight: FontWeight.w900,
@@ -130,7 +130,7 @@ class PremiumSub extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            "ON PREMIUM",
+                            "UPGRADE NOW",
                             style: TextStyle(
                               fontSize: 30.0,
                               fontWeight: FontWeight.bold,

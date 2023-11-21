@@ -384,7 +384,7 @@ class _SignupState extends State<Signup> {
     } on FirebaseAuthException catch (e) {
       print(e);
       Navigator.of(context).pushNamed(routeManager.signUp);
-      Utils.showSnackBar(e.message);
+      Utils.showErrorSnackBar(e.message);
     }
   }
 }

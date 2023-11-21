@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:audio_playlist/login/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:video_player/video_player.dart';
 
 import '../bottomnavigationbar/bottomnavigationbar.dart';
 
@@ -15,6 +17,7 @@ class radio extends StatefulWidget {
 }
 
 class _RadioPageState extends State<radio> {
+  final usero = FirebaseAuth.instance.currentUser!;
   // bool tappin = false;
   //
   // void toggleContainerVisibility() {
@@ -75,14 +78,11 @@ class _RadioPageState extends State<radio> {
                               backgroundColor:
                                   const Color.fromARGB(255, 71, 224, 76),
                               radius: 20.r,
-                              child: const Text(
-                                'J',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                ),
-                              ),
+                              child: Text(usero.email![0].toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.black)),
                             ),
                           ),
                           SizedBox(
@@ -171,53 +171,11 @@ class _RadioPageState extends State<radio> {
                       ),
                       Expanded(
                         child: RadioSelector(
-                            radioChanel: 'Ugradio', radioStation: 'UG Station'
+                            radioChanel: 'UG Station', radioStation: 'Ugradio'
                             // checker: tapper,
                             // onTap: toggleContainerVisibility,
                             ),
                       ),
-                      // SizedBox(
-                      //   height: 20.h,
-                      // ),
-                      // Center(
-                      //   child: ElevatedButton(
-                      //     style: ElevatedButton.styleFrom(
-                      //         shape: RoundedRectangleBorder(
-                      //             borderRadius: BorderRadius.circular(10)),
-                      //         primary: Colors.grey.withOpacity(0.4)),
-                      //     onPressed: () {},
-                      //     // child: null,
-                      //     child: SizedBox(
-                      //       height: 55,
-                      //       width: 42,
-                      //       child: GestureDetector(
-                      //         onTap: (() {
-                      //           // print(player);
-                      //           if (tappin == false) {
-                      //             setState(() {
-                      //               tappin = true;
-                      //             });
-                      //           } else {
-                      //             setState(() {
-                      //               tappin = false;
-                      //             });
-                      //           }
-                      //         }),
-                      //         child: tappin
-                      //             ? Icon(
-                      //                 Icons.play_circle,
-                      //                 color: Colors.white,
-                      //                 size: 42,
-                      //               )
-                      //             : Icon(
-                      //                 Icons.pause_circle,
-                      //                 color: Colors.white,
-                      //                 size: 42,
-                      //               ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   ),
                 ),
@@ -246,6 +204,20 @@ class RadioSelector extends StatefulWidget {
 }
 
 class _RadioSelectorState extends State<RadioSelector> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.network(
+        'https://firebasestorage.googleapis.com/v0/b/ugradio-a3901.appspot.com/o/appdetails%2Fradiovid.mp4?alt=media&token=aed8a54b-02ff-4886-96de-c2085ad8e460') // Adjust the asset path
+      ..initialize().then((_) {
+        setState(() {});
+        // _controller.play();
+        // _controller.setLooping(true);
+      });
+  }
+
   int colorPicker() {
     Random random = Random();
     int randomNumber =
@@ -284,11 +256,18 @@ class _RadioSelectorState extends State<RadioSelector> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
           setState(() {
             tapper = !tapper;
           });
-          tapper ? radioPlayer.play(radioUrl) : radioPlayer.stop();
+          if (tapper) {
+            await radioPlayer.play(radioUrl);
+            _controller.play();
+            _controller.setLooping(true);
+          } else {
+            radioPlayer.stop();
+            _controller.pause();
+          }
         }, // Call the provided onTap callback
         child: Container(
           decoration: BoxDecoration(
@@ -345,11 +324,23 @@ class _RadioSelectorState extends State<RadioSelector> {
                     ),
                   ],
                 ),
-                Image.asset(
-                  images[colorPicker()],
-                  // height: 80.w,
-                  width: double.infinity,
+                SizedBox(
+                  height: 200,
                 ),
+                _controller.value.isInitialized
+                    ? Expanded(
+                        child: AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: VideoPlayer(_controller),
+                        ),
+                      )
+                    : Expanded(
+                        child: Image.asset(
+                          images[colorPicker()],
+                          // height: 80.w,
+                          width: double.infinity,
+                        ),
+                      ),
               ],
             ),
           ),
@@ -357,37 +348,14 @@ class _RadioSelectorState extends State<RadioSelector> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    radioPlayer.stop();
+    _controller.dispose();
+    super.dispose();
+  }
 }
-
-// class RadioPlayer {
-//   AudioPlayer audioPlayer = AudioPlayer();
-//
-//   Future<void> play(String url) async {
-//     int result = await audioPlayer.play(url);
-//     if (result == 1) {
-//       // Success
-//       print('Playing audio');
-//     } else {
-//       print('Error playing audio');
-//     }
-//   }
-//
-//   Future<void> stop() async {
-//     await audioPlayer.stop();
-//   }
-// }
-
-// class RadioPlayer {
-//   AudioPlayer audioPlayer = AudioPlayer();
-//
-//   Future<void> play(Source url) {
-//     return audioPlayer.play(url);
-//   }
-//
-//   Future<void> stop() {
-//     return audioPlayer.stop();
-//   }
-// }
 
 class RadioPlayer {
   AudioPlayer audioPlayer = AudioPlayer();

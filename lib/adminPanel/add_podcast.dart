@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:audio_playlist/constants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -12,8 +13,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart';
 
 import '../api/firebase_api.dart';
+import '../bottomnavigationbar/bottomnavigationbar.dart';
 import '../components/buttons.dart';
 import '../components/selection.dart';
+import '../main.dart';
 import '../popUps/utils.dart';
 
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -26,6 +29,7 @@ class AddPodcast extends StatefulWidget {
 }
 
 class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
+  final usero = FirebaseAuth.instance.currentUser!;
   int time = 15;
   String timing = 'seconds';
   // int percent = 0;
@@ -35,6 +39,9 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
 
   UploadTask? task;
   File? file;
+
+  UploadTask? Pictask;
+  File? Picfile;
 
   final PodTitles = TextEditingController();
   final Host = TextEditingController();
@@ -120,6 +127,8 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final fileName = file != null ? basename(file!.path) : 'No File Selelected';
+    final picName =
+        Picfile != null ? basename(Picfile!.path) : 'No File Selelected';
 
     return Scaffold(
       backgroundColor: kBackGroundColour,
@@ -134,14 +143,28 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
             // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Add Podcast',
-                // textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Add Your Podcast Here',
+                    // textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Image.asset(
+                    'assets/favicons/hand.png',
+                    height: 30,
+                    width: 30,
+                    color: Colors.green,
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 10,
@@ -438,7 +461,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: selectCoverPhoto,
                       child: Container(
                         width: double.infinity,
                         height: 200.h,
@@ -449,15 +472,15 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                // Text(
-                                //   fileName,
-                                //   textAlign: TextAlign.center,
-                                //   style: GoogleFonts.lato(
-                                //       fontSize: 13,
-                                //       fontWeight: FontWeight.w700,
-                                //       fontStyle: FontStyle.italic,
-                                //       color: Colors.white),
-                                // ),
+                                Text(
+                                  picName,
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.lato(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.white),
+                                ),
                                 Icon(
                                   Icons.file_upload_outlined,
                                   color: Colors.white,
@@ -505,7 +528,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
               const SizedBox(
                 height: 20,
               ),
-              task != null ? buildUploadStatus(task!) : Container(),
+              task != null ? buildUploadStatus(task!, context) : Container(),
               const SizedBox(
                 height: 20,
               ),
@@ -513,7 +536,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SizedBox(
-                    width: 120,
+                    width: 140.w,
                     height: 45,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -534,7 +557,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
                     width: 10,
                   ),
                   SizedBox(
-                    width: 120,
+                    width: 140.w,
                     height: 45,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -556,40 +579,121 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
               const SizedBox(
                 height: 20,
               ),
-              FutureBuilder(
-                  future: FirebaseApi().ListFiles('podcasts'),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<firebase_storage.ListResult> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done &&
-                        snapshot.hasData) {
-                      return Container(
-                        height: 80,
-                        // padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data!.items.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(snapshot.data!.items[index].name),
-                                ),
-                              );
-                            }),
-                      );
-                    } else if (snapshot.connectionState ==
-                            ConnectionState.waiting ||
-                        !snapshot.hasData) {
-                      return const Center(
-                          child: CircularProgressIndicator(
-                        color: Colors.green,
-                      ));
-                    } else {
-                      return Container();
-                    }
-                  }),
+              // FutureBuilder(
+              //     future: FirebaseApi().ListFiles('podcasts'),
+              //     builder: (BuildContext context,
+              //         AsyncSnapshot<firebase_storage.ListResult> snapshot) {
+              //       if (snapshot.connectionState == ConnectionState.done &&
+              //           snapshot.hasData) {
+              //         return Container(
+              //           height: 80,
+              //           // padding: const EdgeInsets.symmetric(horizontal: 20),
+              //           child: ListView.builder(
+              //               shrinkWrap: true,
+              //               scrollDirection: Axis.horizontal,
+              //               itemCount: snapshot.data!.items.length,
+              //               itemBuilder: (BuildContext context, int index) {
+              //                 return Padding(
+              //                   padding: const EdgeInsets.all(8.0),
+              //                   child: ElevatedButton(
+              //                     onPressed: () {},
+              //                     child: Text(snapshot.data!.items[index].name),
+              //                   ),
+              //                 );
+              //               }),
+              //         );
+              //       } else if (snapshot.connectionState ==
+              //               ConnectionState.waiting ||
+              //           !snapshot.hasData) {
+              //         return const Center(
+              //             child: CircularProgressIndicator(
+              //           color: Colors.green,
+              //         ));
+              //       } else {
+              //         return Container();
+              //       }
+              //     }),
+              //
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              //
+              // FutureBuilder<List<Map<String, String>>>(
+              //   future: FirebaseApi().fetchAllAudioFiles('podcasts'),
+              //   builder: (context, snapshot) {
+              //     try {
+              //       if (snapshot.connectionState == ConnectionState.waiting) {
+              //         return Center(child: CircularProgressIndicator());
+              //       }
+              //
+              //       if (snapshot.hasError) {
+              //         throw snapshot.error!;
+              //       }
+              //
+              //       final audioMetadataList = snapshot.data;
+              //
+              //       if (audioMetadataList!.isEmpty) {
+              //         return Center(child: Text("No audio files found."));
+              //       }
+              //
+              //       return Container(
+              //         height: 200.0,
+              //         padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              //         child: ListView.builder(
+              //           shrinkWrap: true,
+              //           scrollDirection: Axis.horizontal,
+              //           itemCount: audioMetadataList.length,
+              //           itemBuilder: (context, index) {
+              //             final metadata = audioMetadataList[index];
+              //             final host = metadata['Titles'];
+              //             final title = metadata['Host'];
+              //             final description = metadata['Description'];
+              //             final EpTitle = metadata['Episode Title'];
+              //             final genre = metadata['Genre'];
+              //             final release = metadata['Release Date'];
+              //             // final audio = metadata['Audio File'];
+              //             // final audioUrl = metadata[
+              //             //     'audioUrl']; // Replace with your audio URL key
+              //
+              //             // print(audio);
+              //
+              //             return Padding(
+              //               padding: const EdgeInsets.all(8.0),
+              //               child: ElevatedButton(
+              //                 onPressed: () {
+              //                   // Implement your logic here for the button press
+              //                 },
+              //                 child: Center(
+              //                   child: Column(
+              //                     children: [
+              //                       SizedBox(height: 10.0),
+              //                       Text(title ?? 'Unknown Title'),
+              //                       SizedBox(height: 10.0),
+              //                       Text(host ?? 'Anonymous'),
+              //                       SizedBox(height: 10.0),
+              //                       Text(description ?? 'No Detail'),
+              //                       SizedBox(height: 10.0),
+              //                       Text(EpTitle ?? 'Episode'),
+              //                       SizedBox(height: 10.0),
+              //                       Text(genre ?? 'Unknown Genre'),
+              //                       SizedBox(height: 10.0),
+              //                       Text(release ?? 'Unknown Release Date'),
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ),
+              //             );
+              //           },
+              //         ),
+              //       );
+              //     } catch (error) {
+              //       return Center(
+              //           child: Container(
+              //               color: Colors.deepOrangeAccent,
+              //               child: Text("An error occurred: $error")));
+              //     }
+              //   },
+              // )
             ],
           ),
         ),
@@ -598,7 +702,9 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
   }
 
   Future selectfile() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    final result = await FilePicker.platform.pickFiles(
+        allowMultiple: false, type: FileType.audio // Specify audio file type
+        );
 
     if (result == null) {
       Utils.showErrorSnackBar('No File Selected');
@@ -612,6 +718,23 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
     setState(() => file = File(path!));
   }
 
+  Future selectCoverPhoto() async {
+    final result = await FilePicker.platform.pickFiles(
+        allowMultiple: false, type: FileType.image // Specify audio file type
+        );
+
+    if (result == null) {
+      Utils.showErrorSnackBar('No File Selected');
+    } else {
+      Utils.showSnackBar('File Selected');
+    }
+
+    final path = result?.files.single.path!;
+    // print(path);
+
+    setState(() => Picfile = File(path!));
+  }
+
   Future uploadFile() async {
     if (file == null) {
       Utils.showErrorSnackBar('Can\'t Upload Nothing!');
@@ -621,7 +744,9 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
     if (!isValid) return;
 
     final fileName = basename(file!.path);
+    final PicfileName = basename(Picfile!.path);
     final destination = 'podcasts/$fileName';
+    final picsdestination = 'PodCoverPhoto/$PicfileName';
 
     String Podtitle = PodTitles.text;
     String Hosts = Host.text;
@@ -631,19 +756,45 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
 
     String type = 'PODCAST';
 
-    task = FirebaseApi.uploadFile(destination, file!, type, Podtitle, Hosts,
-        Describe, Episodetitle, EpisodeDescribe, Genre, Release_Date);
+    task = FirebaseApi.uploadFile(
+        destination,
+        file!,
+        type,
+        usero.email,
+        Podtitle,
+        Hosts,
+        Describe,
+        Episodetitle,
+        EpisodeDescribe,
+        Genre,
+        Release_Date);
+
+    Pictask = FirebaseApi.uploadPicFile(picsdestination, Picfile!, type);
 
     setState(() {});
 
-    if (task == null) {
+    if (task == null || Pictask == null) {
       Utils.showErrorSnackBar('Upload Error');
     }
 
     final snapshot = await task!.whenComplete(() {});
+    final picsnapshot = await Pictask!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
+    final pictureurlDownload = await picsnapshot.ref.getDownloadURL();
 
     print('Download-Link: $urlDownload');
+    print('Download-Link: $pictureurlDownload');
+
+    final success = await setMetadataWithDownloadURL(
+        urlDownload, pictureurlDownload, destination, picsdestination);
+
+    if (success) {
+      print('Metadata updated with download URL');
+      // You can update your UI or perform other actions here
+    } else {
+      print('Failed to update metadata with download URL');
+      // Handle the failure case
+    }
 
     PodTitles.clear();
     Host.clear();
@@ -673,7 +824,8 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
   //   print('Download-Link: $urlDownload');
   // }
 
-  Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
+  Widget buildUploadStatus(UploadTask task, BuildContext Bodycontext) =>
+      StreamBuilder<TaskSnapshot>(
         stream: task.snapshotEvents,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -685,7 +837,7 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
             final cprogress = progress * 1.0;
             final percents = (progress * 100).toInt();
 
-            final fillingName = file != null ? basename(file!.path) : null;
+            // final fillingName = file != null ? basename(file!.path) : null;
 
             // DateTime startTime = DateTime.now();
             // // DateTime? startTime;
@@ -738,13 +890,15 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
             // // print('Mine' + remainingTimeString);
 
             if (percents == 100) {
-              Future.delayed(const Duration(seconds: 20), () {
+              Future.delayed(const Duration(seconds: 5), () {
                 // Here you can write your code
                 setState(() {
                   // Here you can write your code for open new view
                   ticktock = true;
                   file = null;
+                  Picfile = null;
                 });
+                Navigator.pop(Bodycontext);
               });
             }
             return ticktock
@@ -878,4 +1032,27 @@ class _AddPodcastState extends State<AddPodcast> with TickerProviderStateMixin {
           }
         },
       );
+
+  Future<bool> setMetadataWithDownloadURL(String downloadURL,
+      String downloadPicURL, String destination, String picsdestination) async {
+    print('i was called also');
+    try {
+      final ref = FirebaseStorage.instance
+          .ref(destination); // Replace with your file path
+      final werk = destination; // Replace with your file path
+      final work = picsdestination;
+      final customMetadata = <String, String>{
+        'Audio File': downloadURL,
+        'Cover Photo': downloadPicURL,
+        'Destination': werk.toString(),
+        'Pic Destination': work.toString()
+      };
+      await ref
+          .updateMetadata(SettableMetadata(customMetadata: customMetadata));
+      return true; // Metadata update successful
+    } catch (e) {
+      print('Error updating metadata: $e');
+      return false; // Metadata update failed
+    }
+  }
 }

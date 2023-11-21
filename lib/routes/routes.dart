@@ -2,7 +2,6 @@ import 'package:audio_playlist/adminPanel/add_music.dart';
 import 'package:audio_playlist/adminPanel/add_podcast.dart';
 import 'package:audio_playlist/artistesdetails/artiste_profile.dart';
 import 'package:audio_playlist/artistesdetails/profile.dart';
-import 'package:audio_playlist/audiio_player.dart';
 import 'package:audio_playlist/audio/player.dart';
 import 'package:audio_playlist/authentication/auth-one.dart';
 import 'package:audio_playlist/bottomnavigationbar/bottomnavigationbar.dart';
@@ -21,6 +20,9 @@ import 'package:audio_playlist/profile/profile_information.dart';
 import 'package:audio_playlist/profile/register.dart';
 import 'package:flutter/material.dart';
 
+import '../adminPanel/change_password.dart';
+import '../adminPanel/manage_data.dart';
+import '../adminPanel/settings.dart';
 import '../onboarding/onboard_3.dart';
 
 class routeManager {
@@ -42,6 +44,9 @@ class routeManager {
   static const String registerUser = '/register';
   static const String play = '/playlist';
   static const String playing = '/currentPlay';
+  static const String updateProfile = '/updateProfile';
+  static const String updateData = '/updateData';
+  static const String changePassword = '/changePassword';
   // PremiumSub
   static Route<dynamic> routeSettings(RouteSettings settings) {
     switch (settings.name) {
@@ -61,7 +66,7 @@ class routeManager {
         return MaterialPageRoute(
             builder: ((context) => const forgetPassword()));
       case profilePages:
-        return MaterialPageRoute(builder: ((context) => const audio_player()));
+        return MaterialPageRoute(builder: ((context) => const profilePage()));
       case onboarding1:
         return MaterialPageRoute(builder: ((context) => const Onboarding()));
       case onboarding2:
@@ -79,11 +84,20 @@ class routeManager {
         return MaterialPageRoute(builder: ((context) => const register()));
       case profileDetail:
         return MaterialPageRoute(
-            builder: ((context) => const ProfileDetails()));
+            builder: ((context) => const profile_information()));
       case play:
         return MaterialPageRoute(builder: ((context) => const playlist()));
-      case playing:
-        return MaterialPageRoute(builder: ((context) => const currentPlay()));
+      case updateProfile:
+        return MaterialPageRoute(builder: ((context) => const update_user()));
+      case updateData:
+        return MaterialPageRoute(builder: ((context) => const manager()));
+      case changePassword:
+        return MaterialPageRoute(
+            builder: ((context) => const updatePassword()));
+      // case playing:
+      //   return MaterialPageRoute(builder: ((context) => currentPlay(
+      //
+      //   )));
       default:
         throw const FormatException('no route found');
     }

@@ -2,6 +2,7 @@ library showbutton;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
@@ -37,6 +38,7 @@ class InkButton extends StatelessWidget {
   InkButton({
     required this.icon1,
     this.icon2,
+    this.dswitch,
     required this.text1,
     required this.onTap,
   });
@@ -45,6 +47,7 @@ class InkButton extends StatelessWidget {
   final IconData icon1;
   final String text1;
   final IconData? icon2;
+  final bool? dswitch;
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +81,36 @@ class InkButton extends StatelessWidget {
               color: Colors.green,
               size: 30.sp,
             ),
+            dswitch == null
+                ? Container()
+                : Consumer<Toggler>(
+                    builder: (context, toggleButton, child) {
+                      return Align(
+                        alignment: Alignment.centerRight,
+                        child: Switch(
+                          // This bool value toggles the switch.
+                          value: toggleButton.isToggled,
+                          activeColor: Colors.lightGreenAccent,
+                          onChanged: (bool value) {
+                            toggleButton.toggle();
+                          },
+                        ),
+                      );
+                    },
+                  ),
           ],
         ),
       ),
     );
+  }
+}
+
+class Toggler extends ChangeNotifier {
+  bool isToggled = false;
+
+  void toggle() {
+    isToggled = !isToggled;
+    notifyListeners();
   }
 }
 
@@ -210,8 +239,8 @@ List<String> header = [
   'Streaming Bliss Enjoy Your Favorite Content Anytime, Anywhere.',
 ];
 
-List<String> onboardImages = [
-  "assets/pics/onboard_1.png",
-  "assets/pics/onboard_2.png",
-  "assets/pics/onboard_3.png"
-];
+// List<String> onboardImages = [
+//   "assets/pics/onboard_1.png",
+//   "assets/pics/onboard_2.png",
+//   "assets/pics/onboard_3.png"
+// ];

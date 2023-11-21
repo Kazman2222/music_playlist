@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 import '../adminPanel/admin_panel.dart';
+import '../api/firebase_api.dart';
 import '../artistesdetails/podcast_details.dart';
 import '../artistesdetails/profile.dart';
 import '../popUps/audiencefeeds.dart';
@@ -23,6 +24,8 @@ class final_home extends StatefulWidget {
 }
 
 class _final_homeState extends State<final_home> {
+  final usero = FirebaseAuth.instance.currentUser!;
+
   TextEditingController searchController = TextEditingController();
 
   List<String> myList = [];
@@ -64,8 +67,17 @@ class _final_homeState extends State<final_home> {
     loadCounter();
   }
 
+  // void runNow() {
+  //   // var audioProvider = Provider.of<AudioManagement>(context);
+  //   final myModel02 = context.watch<AudioManagement>();
+  //
+  //   // Fetch audio files when the widget is built
+  //   myModel02.fetchAudioFiles('songs');
+  // }
+
   @override
   Widget build(BuildContext context) {
+    // runNow();
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -106,7 +118,7 @@ class _final_homeState extends State<final_home> {
                               backgroundColor:
                                   const Color.fromARGB(255, 71, 224, 76),
                               radius: 20.r,
-                              child: Text('J',
+                              child: Text(usero.email![0].toUpperCase(),
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
@@ -159,7 +171,7 @@ class _final_homeState extends State<final_home> {
                     const Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: Text(
-                        'Favorite Podcast',
+                        'Favorite Artists',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -304,7 +316,7 @@ class _final_homeState extends State<final_home> {
                                 primary: const Color(0xffE32E00)),
                             onPressed: (() {}),
                             child: const Text(
-                              'Comedy',
+                              'XBL',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -323,7 +335,7 @@ class _final_homeState extends State<final_home> {
                                 primary: const Color(0xff850C5C)),
                             onPressed: (() {}),
                             child: const Text(
-                              'Health & Wellness',
+                              'Upcoming Artists',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -350,7 +362,7 @@ class _final_homeState extends State<final_home> {
                               ),
                               onPressed: (() {}),
                               child: const Text(
-                                'Society',
+                                'Hot Tracks',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -368,7 +380,7 @@ class _final_homeState extends State<final_home> {
                                 primary: const Color(0xff0C856F)),
                             onPressed: (() {}),
                             child: const Text(
-                              'Culture',
+                              'New Music',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -388,7 +400,7 @@ class _final_homeState extends State<final_home> {
                             ),
                             onPressed: (() {}),
                             child: const Text(
-                              'Technology',
+                              'Squadz',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -401,7 +413,7 @@ class _final_homeState extends State<final_home> {
                     const Padding(
                       padding: EdgeInsets.only(left: 20, top: 15, bottom: 10),
                       child: Text(
-                        'Trending',
+                        'New Music Feed',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -491,7 +503,310 @@ class _final_homeState extends State<final_home> {
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                      padding: EdgeInsets.only(left: 20, top: 15, bottom: 10),
+                      child: Text(
+                        'Trending',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22),
+                      ),
+                    ),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   height: 160,
+                    //   child: SizedBox(
+                    //     height: 160,
+                    //     width: 300,
+                    //     child: ListView.builder(
+                    //       shrinkWrap: true,
+                    //       scrollDirection: Axis.horizontal,
+                    //       itemCount: 10,
+                    //       itemBuilder: ((context, index) {
+                    //         return GestureDetector(
+                    //           onTap: () => feedsBottomSheet(context),
+                    //           child: Container(
+                    //             margin:
+                    //             const EdgeInsets.only(left: 20, right: 10),
+                    //             padding:
+                    //             const EdgeInsets.only(left: 10, right: 10),
+                    //             width: 350,
+                    //             decoration: BoxDecoration(
+                    //               borderRadius: BorderRadius.circular(15),
+                    //               image: const DecorationImage(
+                    //                   image: NetworkImage(
+                    //                     'https://media.istockphoto.com/id/1471715408/photo/two-young-stylish-radio-show-hosts-record-fresh-podcast-episode-in-home-loft-studio-apartment.jpg?s=612x612&w=0&k=20&c=_5o0glsgMBzhiQU6MsxGS4aYfkBPFs3NaQiTGMyBHVA=',
+                    //                   ),
+                    //                   fit: BoxFit.cover),
+                    //             ),
+                    //             child: Column(
+                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                    //               mainAxisAlignment:
+                    //               MainAxisAlignment.spaceAround,
+                    //               children: [
+                    //                 const SizedBox(
+                    //                   height: 5,
+                    //                 ),
+                    //                 const Text(
+                    //                   '#Trending',
+                    //                   style: TextStyle(
+                    //                       color: Colors.green,
+                    //                       fontSize: 14.5,
+                    //                       fontWeight: FontWeight.bold),
+                    //                 ),
+                    //                 const Text(
+                    //                   'Genre Revolution: Shattering Boundaries,Unleashing a New Era of Sound!',
+                    //                   style: TextStyle(
+                    //                       color: Colors.white,
+                    //                       fontWeight: FontWeight.bold,
+                    //                       fontSize: 16),
+                    //                 ),
+                    //                 SizedBox(
+                    //                   // height: 50.h,
+                    //                   // width: 150.w,
+                    //                   child: ElevatedButton(
+                    //                     style: ElevatedButton.styleFrom(
+                    //                         primary: Colors.transparent,
+                    //                         side: const BorderSide(
+                    //                             color: Colors.white, width: 2),
+                    //                         shape: RoundedRectangleBorder(
+                    //                             borderRadius:
+                    //                             BorderRadius.circular(15))),
+                    //                     onPressed: (() {
+                    //                       setState(() {
+                    //                         _incrementCounter();
+                    //                       });
+                    //                     }),
+                    //                     child: const Text(
+                    //                       'Listening Now',
+                    //                       style: TextStyle(
+                    //                           color: Colors.white,
+                    //                           fontWeight: FontWeight.bold,
+                    //                           fontSize: 16),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         );
+                    //       }),
+                    //     ),
+                    //   ),
+                    // )
+                    FutureBuilder<List<Map<String, String>>>(
+                      future: FirebaseApi().fetchAllAudioFiles('podcasts'),
+                      builder: (context, snapshot) {
+                        try {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                                child: CircularProgressIndicator(
+                              color: Colors.lightGreenAccent,
+                            ));
+                          }
+
+                          if (snapshot.hasError) {
+                            throw snapshot.error!;
+                          }
+
+                          final audioMetadataList = snapshot.data;
+
+                          if (audioMetadataList!.isEmpty) {
+                            return SizedBox(
+                              width: double.infinity,
+                              height: 160,
+                              child: SizedBox(
+                                height: 160,
+                                width: 300,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 10,
+                                  itemBuilder: ((context, index) {
+                                    return GestureDetector(
+                                      onTap: () => feedsBottomSheet(context),
+                                      child: Container(
+                                        margin: const EdgeInsets.only(
+                                            left: 20, right: 10),
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        width: 350,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          image: const DecorationImage(
+                                              image: NetworkImage(
+                                                'https://media.istockphoto.com/id/1471715408/photo/two-young-stylish-radio-show-hosts-record-fresh-podcast-episode-in-home-loft-studio-apartment.jpg?s=612x612&w=0&k=20&c=_5o0glsgMBzhiQU6MsxGS4aYfkBPFs3NaQiTGMyBHVA=',
+                                              ),
+                                              fit: BoxFit.cover),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            const Text(
+                                              '#Trending',
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 14.5,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const Text(
+                                              'Genre Revolution: Shattering Boundaries,Unleashing a New Era of Sound!',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16),
+                                            ),
+                                            SizedBox(
+                                              // height: 50.h,
+                                              // width: 150.w,
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                    primary: Colors.transparent,
+                                                    side: const BorderSide(
+                                                        color: Colors.white,
+                                                        width: 2),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15))),
+                                                onPressed: (() {
+                                                  setState(() {
+                                                    _incrementCounter();
+                                                  });
+                                                }),
+                                                child: const Text(
+                                                  'Listening Now',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                                ),
+                              ),
+                            );
+                          }
+
+                          return SizedBox(
+                            width: double.infinity,
+                            height: 160,
+                            child: SizedBox(
+                              height: 160,
+                              width: 300,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 3,
+                                itemBuilder: ((context, index) {
+                                  final metadata = audioMetadataList[index];
+                                  final title = metadata['Titles'];
+                                  final host = metadata['Host'];
+                                  final description = metadata['Description'];
+                                  final EpTitle = metadata['Episode Title'];
+                                  final genre = metadata['Genre'];
+                                  final release = metadata['Release Date'];
+                                  final audio = metadata['Audio File'];
+                                  final coverPhoto = metadata['Cover Photo'];
+
+                                  return GestureDetector(
+                                    onTap: () => feedsBottomSheet(context),
+                                    child: Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 20, right: 10),
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      width: 350,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        image: DecorationImage(
+                                            image: NetworkImage(coverPhoto ==
+                                                    null
+                                                ? 'https://media.istockphoto.com/id/1471715408/photo/two-young-stylish-radio-show-hosts-record-fresh-podcast-episode-in-home-loft-studio-apartment.jpg?s=612x612&w=0&k=20&c=_5o0glsgMBzhiQU6MsxGS4aYfkBPFs3NaQiTGMyBHVA='
+                                                : coverPhoto),
+                                            fit: BoxFit.cover),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            '#${genre}',
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 14.5,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            EpTitle!,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                          SizedBox(
+                                            // height: 50.h,
+                                            // width: 150.w,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.transparent,
+                                                  side: const BorderSide(
+                                                      color: Colors.white,
+                                                      width: 2),
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15))),
+                                              onPressed: (() {
+                                                setState(() {
+                                                  _incrementCounter();
+                                                });
+                                              }),
+                                              child: const Text(
+                                                'Listen Now',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
+                          );
+                        } catch (error) {
+                          return Center(
+                              child: Container(
+                                  color: Colors.deepOrangeAccent,
+                                  child: Text("An error occurred: $error")));
+                        }
+                      },
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, top: 20, bottom: 10),
                       child: Text(
                         'Top Podcast',
                         style: TextStyle(
@@ -500,69 +815,204 @@ class _final_homeState extends State<final_home> {
                             fontSize: 22),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w),
-                      child: SizedBox(
-                        height: 200.h,
-                        width: double.infinity,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 3,
-                            itemBuilder: ((context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Podcast()),
-                                  );
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 10.0,
-                                      bottom: 10.0,
-                                      left: 0.00,
-                                      right: 25.00),
-                                  height: 200.h,
-                                  width: 250.w,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 120.h,
-                                        width: 250.w,
-                                        decoration: BoxDecoration(
-                                          image: const DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://media.istockphoto.com/id/1420789680/vector/girl-in-headphones-speaks-into-the-microphone-recording-podcast-in-studio-radio-broadcasting.jpg?s=612x612&w=0&k=20&c=DyUAJFWEBaaTmkhDHJkq4maVoqim1H76ZBQC3zHmN14='),
-                                              fit: BoxFit.cover),
+                    FutureBuilder<List<Map<String, String>>>(
+                      future: FirebaseApi().fetchAllAudioFiles('podcasts'),
+                      builder: (context, snapshot) {
+                        try {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Container(
+                                height: 200.h,
+                                color: kBackGroundColour,
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                  color: Colors.lightGreenAccent,
+                                )));
+                          }
+
+                          if (snapshot.hasError) {
+                            throw snapshot.error!;
+                          }
+
+                          final audioMetadataList = snapshot.data;
+
+                          if (audioMetadataList!.isEmpty) {
+                            return Padding(
+                              padding: EdgeInsets.only(left: 20.w),
+                              child: SizedBox(
+                                height: 300.h,
+                                width: double.infinity,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 3,
+                                    itemBuilder: ((context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //       builder: (context) =>
+                                          //           Podcast(
+                                          //             Eptitle: '',
+                                          //             release: '',
+                                          //             host: '',
+                                          //             title: '',
+                                          //             description: '',
+                                          //             // audio: '',
+                                          //             coverphoto: '',
+                                          //           )
+                                          //   ),
+                                          // );
+                                        },
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                              top: 10.0,
+                                              bottom: 10.0,
+                                              left: 0.00,
+                                              right: 25.00),
+                                          height: 200.h,
+                                          width: 250.w,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                height: 120.h,
+                                                width: 250.w,
+                                                decoration: BoxDecoration(
+                                                  image: const DecorationImage(
+                                                      image: NetworkImage(
+                                                          'https://media.istockphoto.com/id/1420789680/vector/girl-in-headphones-speaks-into-the-microphone-recording-podcast-in-studio-radio-broadcasting.jpg?s=612x612&w=0&k=20&c=DyUAJFWEBaaTmkhDHJkq4maVoqim1H76ZBQC3zHmN14='),
+                                                      fit: BoxFit.cover),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 11.h,
+                                                    horizontal: 11.w),
+                                                child: const Text(
+                                                  'Brunch-Talk',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    })),
+                              ),
+                            );
+                          }
+
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.w),
+                            child: Container(
+                              height: 200.h,
+                              width: double.infinity,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: audioMetadataList.length,
+                                itemBuilder: ((context, index) {
+                                  final metadata = audioMetadataList[index];
+                                  final title = metadata['Titles'];
+                                  final host = metadata['Host'];
+                                  final description = metadata['Description'];
+                                  final EpTitle = metadata['Episode Title'];
+                                  final EpDescription =
+                                      metadata['Episode Description'];
+                                  final genre = metadata['Genre'];
+                                  final release = metadata['Release Date'];
+                                  final audio = metadata['Audio File'];
+                                  final coverPhoto = metadata['Cover Photo'];
+
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Podcast(
+                                                  title: title.toString(),
+                                                  host: host.toString(),
+                                                  description:
+                                                      description.toString(),
+                                                  Eptitle: EpTitle.toString(),
+                                                  EpDescription:
+                                                      EpDescription.toString(),
+                                                  release: release.toString(),
+                                                  audio: audio,
+                                                  coverphoto: coverPhoto,
+                                                )),
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(
+                                          top: 10.0,
+                                          bottom: 10.0,
+                                          left: 0.00,
+                                          right: 25.00),
+                                      height: 200.h,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
                                           borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
+                                              BorderRadius.circular(15)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            height: 120.h,
+                                            width: 300.w,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(coverPhoto ==
+                                                          null
+                                                      ? 'https://media.istockphoto.com/id/1420789680/vector/girl-in-headphones-speaks-into-the-microphone-recording-podcast-in-studio-radio-broadcasting.jpg?s=612x612&w=0&k=20&c=DyUAJFWEBaaTmkhDHJkq4maVoqim1H76ZBQC3zHmN14='
+                                                      : coverPhoto),
+                                                  fit: BoxFit.cover),
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 11.h,
+                                                horizontal: 11.w),
+                                            child: Text(
+                                              '${host} by ${title}',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 11.h, horizontal: 11.w),
-                                        child: const Text(
-                                          'Brunch-Talk',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            })),
-                      ),
-                    )
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
+                          );
+                        } catch (error) {
+                          return Center(
+                              child: Container(
+                                  color: Colors.deepOrangeAccent,
+                                  child: Text("An error occurred: $error")));
+                        }
+                      },
+                    ),
                   ],
                 ),
               ));

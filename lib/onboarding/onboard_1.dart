@@ -65,10 +65,18 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
               SizedBox(
                 height: 15.h,
               ),
+              // SlideTransition(
+              //   position: animation,
+              //   child: Image.asset(
+              //     'assets/pics/UG_Radio.png',
+              //     width: double.infinity,
+              //     height: 300.h,
+              //   ),
+              // ),
               SlideTransition(
                 position: animation,
                 child: Image.asset(
-                  onboardImages[index],
+                  'assets/pics/UG_Radio.png',
                   width: double.infinity,
                   height: 300.h,
                 ),

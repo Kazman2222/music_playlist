@@ -66,10 +66,10 @@ class _Onboarding2State extends State<Onboarding2>
               SizedBox(
                 height: 15.h,
               ),
-              SlideTransition(
-                position: animation,
+              Hero(
+                tag: 'Onboard',
                 child: Image.asset(
-                  onboardImages[index],
+                  'assets/pics/UG_Radio.png',
                   width: double.infinity,
                   height: 300.h,
                 ),
